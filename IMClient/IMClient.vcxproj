@@ -188,6 +188,27 @@
   <ItemGroup>
     <ClCompile Include="CImDlg.cpp" />
     <ClCompile Include="CLoginDlg.cpp" />
+    <ClCompile Include="extend.ctrls\ExtendCtrls.cpp" />
+    <ClCompile Include="extend.ctrls\gif\SGifPlayer.cpp" />
+    <ClCompile Include="extend.ctrls\gif\SSkinAPNG.cpp" />
+    <ClCompile Include="extend.ctrls\gif\SSkinGif.cpp" />
+    <ClCompile Include="extend.ctrls\imre\ClipboardConverter.cpp" />
+    <ClCompile Include="extend.ctrls\imre\dataobject.cpp" />
+    <ClCompile Include="extend.ctrls\imre\HTMLParser.cpp" />
+    <ClCompile Include="extend.ctrls\imre\HTTPDownloader.cpp" />
+    <ClCompile Include="extend.ctrls\imre\ImgProvider.cpp" />
+    <ClCompile Include="extend.ctrls\imre\RichEditObj.cpp" />
+    <ClCompile Include="extend.ctrls\imre\RichEditObjFactory.cpp" />
+    <ClCompile Include="extend.ctrls\imre\RichEditOleBase.cpp" />
+    <ClCompile Include="extend.ctrls\imre\RichEditOleCallback.cpp" />
+    <ClCompile Include="extend.ctrls\imre\RichEditOleCtrls.cpp" />
+    <ClCompile Include="extend.ctrls\imre\RichEditUnitConverter.cpp" />
+    <ClCompile Include="extend.ctrls\imre\SImRichedit.cpp" />
+    <ClCompile Include="extend.ctrls\SButtonEx.cpp" />
+    <ClCompile Include="extend.ctrls\SImageView.cpp" />
+    <ClCompile Include="extend.ctrls\SListboxex.cpp" />
+    <ClCompile Include="extend.skins\ExtendSkins.cpp" />
+    <ClCompile Include="extend.skins\SAntialiasSkin.cpp" />
     <ClCompile Include="IMClient.cpp" />
     <ClCompile Include="MainDlg.cpp" />
     <ClCompile Include="MenuWrapper.cpp" />
@@ -199,6 +220,7 @@
     </ClCompile>
     <ClCompile Include="trayicon\SShellNofityHwnd2.cpp" />
     <ClCompile Include="trayicon\SShellNotifyIcon.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IMClient.rc" />
@@ -206,12 +228,39 @@
   <ItemGroup>
     <ClInclude Include="CImDlg.h" />
     <ClInclude Include="CLoginDlg.h" />
+    <ClInclude Include="extend.ctrls\ExtendCtrls.h" />
+    <ClInclude Include="extend.ctrls\gif\SAniImgFrame.h" />
+    <ClInclude Include="extend.ctrls\gif\SGifPlayer.h" />
+    <ClInclude Include="extend.ctrls\gif\SSkinAPNG.h" />
+    <ClInclude Include="extend.ctrls\gif\SSkinGif.h" />
+    <ClInclude Include="extend.ctrls\imre\ClipboardConverter.h" />
+    <ClInclude Include="extend.ctrls\imre\dataobject.h" />
+    <ClInclude Include="extend.ctrls\imre\HTMLParser.h" />
+    <ClInclude Include="extend.ctrls\imre\HTTPDownloader.h" />
+    <ClInclude Include="extend.ctrls\imre\ImgProvider.h" />
+    <ClInclude Include="extend.ctrls\imre\IRichEditObjHost.h" />
+    <ClInclude Include="extend.ctrls\imre\RichEditObj.h" />
+    <ClInclude Include="extend.ctrls\imre\RichEditObjEvents.h" />
+    <ClInclude Include="extend.ctrls\imre\RichEditObjFactory.h" />
+    <ClInclude Include="extend.ctrls\imre\RichEditOleBase.h" />
+    <ClInclude Include="extend.ctrls\imre\RichEditOleCallback.h" />
+    <ClInclude Include="extend.ctrls\imre\RichEditOleCtrls.h" />
+    <ClInclude Include="extend.ctrls\imre\RichEditUnitConverter.h" />
+    <ClInclude Include="extend.ctrls\imre\SImRichEdit.h" />
+    <ClInclude Include="extend.ctrls\SButtonEx.h" />
+    <ClInclude Include="extend.ctrls\SImageView.h" />
+    <ClInclude Include="extend.ctrls\SListboxex.h" />
+    <ClInclude Include="extend.events\ExtendEvents.h" />
+    <ClInclude Include="extend.skins\ExtendSkins.h" />
+    <ClInclude Include="extend.skins\SAntialiasSkin.h" />
+    <ClInclude Include="extend.skins\SVscrollbar.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="MenuWrapper.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="trayicon\SShellNofityHwnd2.h" />
     <ClInclude Include="trayicon\SShellNotifyIcon.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\soui_res.rc2" />

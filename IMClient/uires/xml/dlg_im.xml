@@ -18,8 +18,9 @@
 				<caption pos="0,0,@60,-0" colorBkgnd="#2E2E2E">
 					<!--左侧功能栏-->
 				</caption>
-				<caption pos="[0,{0,@200,-0" colorBkgnd="#F7F7F7">
+				<caption pos="[0,{0,@200,-0" colorBkgnd="#E2E2E2">
 					<!--最近会话、联系人列表等列表栏-->
+					<caption pos="0,0,-1,-0" colorBkgnd="#F7F7F7"></caption>
 				</caption>
 				<caption pos="[0,{0,-0,-0" colorBkgnd="#FFFFFF">
 					<!--右侧-->
@@ -33,20 +34,61 @@
 						<imgbtn name="btn_restore" pos="-60,0" show="0" skin="skin_btn_restore"/>
 						<imgbtn name="btn_min" pos="-90,0" skin="skin_btn_min"/>
 					</caption>
-					<caption pos="0,[0,-0,-0" colorBkgnd="#FFFFFF">
+					<caption pos="0,[0,-0,-0" colorBkgnd="#E2E2E2">
 						<!--功能区，-->
-						<tabctrl pos="0,0,-0,-0" name="tab_common_area" tabHeight="0">
+						<tabctrl pos="0,1,-0,-0" name="tab_common_area" tabHeight="0">
 							<page title="chat">
 								<caption pos="0,0,-0,-0">
 									<!--分为三部分，即消息接收区、功能按钮区、消息发送区-->
-									<caption pos="0,0,-0,-180" colorBkgnd="#0000FF">
-										
+									<caption pos="0,0,-0,-180" colorBkgnd="#E2E2E2">
+										<caption pos="0,0,-0,-1" colorBkgnd="#FFFFFF">
+											<imrichedit name="recv_richedit"
+														pos="1,1,-1,-1"
+														bkgndBlend="1"
+														colorBkgnd="rgb(255,255,255)"
+														enableDragdrop="1"
+														readOnly="1"
+														autoSel="0"
+														multiLines="1"
+														autoWordSel="0"
+														vscrollBar="1"
+														wordWrap="1"
+														autoVscroll="0"
+														hscrollBar="0"
+														wantReturn="1"
+														scrollSpeed="40"
+														inset="5,0,12,0"
+														sbWid="8"/>
+										</caption>
 									</caption>
-									<caption pos="0,[0,-0,@30" colorBkgnd="#FF0000">
+									<caption pos="0,[0,-0,@30" colorBkgnd="#FFFFFF">
+										<imgbtn name="btn_emotion" pos="10,5" skin="skin_emotion" cursor="hand"/>
+										<imgbtn name="btn_image" pos="[10,{0" skin="skin_image" cursor="hand"/>
+										<imgbtn name="btn_file" pos="[10,{0" skin="skin_file" cursor="hand"/>
+										<imgbtn name="btn_snapshot" pos="[10,{0" skin="skin_snapshot" cursor="hand"/>
+										<imgbtn name="btn_snapshot_arrow" pos="[0,{5" skin="skin_snapshot_arrow" cursor="hand"/>
+										<imgbtn name="btn_history" pos="[10,{-5" skin="skin_history" cursor="hand"/>
 
+										<imgbtn name="btn_audio" pos="-55,{0,@20,@20" skin="skin_audio" cursor="hand" />
+										<imgbtn name="btn_video" pos="-30,{0,@20,@20" skin="skin_video" cursor="hand" />
 									</caption>
-									<caption pos="0,[0,-0,-0" colorBkgnd="#00FF00">
-
+									<caption pos="0,[0,-0,-0" colorBkgnd="#FFFFFF">
+										<imrichedit name="send_richedit"
+											pos="1,1,-20,-1"
+											bkgndBlend="1"
+											enabledragdrop="1"
+											autoSel="0"
+											multiLines="1"
+											autoWordSel="0"
+											vscrollBar="1"
+											wordWrap="1"
+											autoVscroll="1"
+											hscrollBar="0"
+											wantReturn="1"
+											colorBkgnd="rgb(255,255,255)"
+											inset="0,0,8,0"
+											cursor=""
+											sbWid="8"/>
 									</caption>
 								</caption>
 							</page>

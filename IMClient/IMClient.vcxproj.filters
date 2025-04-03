@@ -23,6 +23,21 @@
     <Filter Include="自定义控件">
       <UniqueIdentifier>{73f16bd6-eca6-4aec-ab9b-cd30bc5d59fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="extend.ctrls">
+      <UniqueIdentifier>{4b417626-0ba6-409d-912b-5d1fcbfa21b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extend.ctrls\gif">
+      <UniqueIdentifier>{79614f3c-1eb0-4089-995c-d47d7ef7493c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extend.ctrls\imre">
+      <UniqueIdentifier>{7e745182-9086-4af0-9500-afa6908be6e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extend.events">
+      <UniqueIdentifier>{7d4f3072-b649-40bd-962b-756e2136ad5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extend.skins">
+      <UniqueIdentifier>{9dff3e8a-526b-44f1-8c58-6eb31eb3ecbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license.txt" />
@@ -51,6 +66,72 @@
       <Filter>自定义控件</Filter>
     </ClCompile>
     <ClCompile Include="CImDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\ExtendCtrls.cpp">
+      <Filter>extend.ctrls</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\SButtonEx.cpp">
+      <Filter>extend.ctrls</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\SImageView.cpp">
+      <Filter>extend.ctrls</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\SListboxex.cpp">
+      <Filter>extend.ctrls</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\gif\SGifPlayer.cpp">
+      <Filter>extend.ctrls\gif</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\gif\SSkinAPNG.cpp">
+      <Filter>extend.ctrls\gif</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\gif\SSkinGif.cpp">
+      <Filter>extend.ctrls\gif</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\ClipboardConverter.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\dataobject.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\HTMLParser.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\HTTPDownloader.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\ImgProvider.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\RichEditObj.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\RichEditObjFactory.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\RichEditOleBase.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\RichEditOleCallback.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\RichEditOleCtrls.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\RichEditUnitConverter.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.ctrls\imre\SImRichedit.cpp">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.skins\ExtendSkins.cpp">
+      <Filter>extend.skins</Filter>
+    </ClCompile>
+    <ClCompile Include="extend.skins\SAntialiasSkin.cpp">
+      <Filter>extend.skins</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,6 +163,87 @@
       <Filter>自定义控件</Filter>
     </ClInclude>
     <ClInclude Include="CImDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\ExtendCtrls.h">
+      <Filter>extend.ctrls</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\SButtonEx.h">
+      <Filter>extend.ctrls</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\SImageView.h">
+      <Filter>extend.ctrls</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\SListboxex.h">
+      <Filter>extend.ctrls</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\gif\SAniImgFrame.h">
+      <Filter>extend.ctrls\gif</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\gif\SGifPlayer.h">
+      <Filter>extend.ctrls\gif</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\gif\SSkinAPNG.h">
+      <Filter>extend.ctrls\gif</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\gif\SSkinGif.h">
+      <Filter>extend.ctrls\gif</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\ClipboardConverter.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\dataobject.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\HTMLParser.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\HTTPDownloader.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\ImgProvider.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\IRichEditObjHost.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\RichEditObj.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\RichEditObjEvents.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\RichEditObjFactory.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\RichEditOleBase.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\RichEditOleCallback.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\RichEditOleCtrls.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\RichEditUnitConverter.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.ctrls\imre\SImRichEdit.h">
+      <Filter>extend.ctrls\imre</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.events\ExtendEvents.h">
+      <Filter>extend.events</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.skins\ExtendSkins.h">
+      <Filter>extend.skins</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.skins\SAntialiasSkin.h">
+      <Filter>extend.skins</Filter>
+    </ClInclude>
+    <ClInclude Include="extend.skins\SVscrollbar.h">
+      <Filter>extend.skins</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

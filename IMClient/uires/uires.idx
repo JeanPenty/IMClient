@@ -60,6 +60,25 @@
 		<file name="IDB_PNG_LOGINTOOLDOT" path="image\login\login_tool_dot.png"/>
 
 		<file name="IDB_PNG_STATE" path="image\login\state.png" />
+
+
+		<file name="IDB_PNG_EMOTION" path="image\chat\emotion.png" />
+		<file name="IDB_PNG_IMAGE" path="image\chat\image.png" />
+		<file name="IDB_PNG_FILE" path="image\chat\file.png" />
+		<file name="IDB_PNG_SNAPSHOT" path="image\chat\snapshot.png" />
+		<file name="IDB_PNG_SNAPSHOT_ARROW" path="image\chat\snapshot_arrow.png" />
+		<file name="IDB_PNG_HISTORY" path="image\chat\history.png" />
+		<file name="IDB_PNG_SEND" path="image\chat\send.png" />
+
+		<file name="IDB_PNG_NORMALAUDIO" path="image\chat\audio_normal.png" />
+		<file name="IDB_PNG_DOWNAUDIO" path="image\chat\audio_down.png" />
+		<file name="IDB_PNG_NORMALVIDEO" path="image\chat\video_normal.png" />
+		<file name="IDB_PNG_DOWNVIDEO" path="image\chat\video_down.png" />
+
+		<file name="IDB_PNG_NORMALAUDIOVIDEO" path="image\chat\video_audio_normal.png" />
+		<file name="IDB_PNG_DOWNAUDIOVIDEO" path="image\chat\video_audio_down.png" />
+		<file name="IDB_PNG_NORMALLIVE" path="image\chat\live_normal.png" />
+		<file name="IDB_PNG_DOWNLIVE" path="image\chat\live_down.png" />
 	</PNG>
   <IMG>
     <file name="traymenu_icons" path="image\traymenu_icons.png"/>
