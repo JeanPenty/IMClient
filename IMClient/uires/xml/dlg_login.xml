@@ -12,6 +12,8 @@
 			<caption pos="10,10,-10,-10" colorBkgnd="#FFFFFF">
 				<imgbtn name="btn_close" pos="-40,0" skin="skin_btn_close"/>
 				<imgbtn name="btn_min" pos="-70,0" skin="skin_btn_min"/>
+				<imgbtn name="btn_tool" pos="-100,0" skin="skin_btn_logintool"/>
+				<imgbtn name="btn_tooldot" pos="-110,0" show="0" skin="skin_btn_logintool"/>
 				<caption pos="0,[0,@250,-0" colorBkgnd="rgba(100,255,155,50)">
 					<!--用来放置广告轮播banner或者其他登录动画-->
 				</caption>
@@ -55,6 +57,7 @@
 												   colorText="rgb(58,0,58)"
 												   align="left"
 												   autoSel="1"
+												   font="face:微软雅黑,size:15"
 												   transparent="1"
 												   wordWrap="1"
 												   cueText="输入账号">
@@ -66,7 +69,12 @@
 									<tabctrl name="tab_accsms_login" pos="{0,[20,@300,@42" tabHeight="0">
 										<page title="acc_login">
 											<caption pos="0,0,-0,-0">
-												<edit name="edit_password" pos="0,0,-0,-0" inset="35,0,40,0" class="cls_edit" password="1"  passwordChar="●" cueText="请输入密码" />
+												<edit name="edit_password" 
+													  pos="0,0,-0,-0" 
+													  inset="35,0,40,0" 
+													  class="cls_edit"
+													  font="face:微软雅黑,size:15"
+													  password="1"  passwordChar="●" cueText="请输入密码" />
 												<img pos="{0,{0,@26,@42" skin="skin_pwdimage"></img>
 												<imgbtn name="btn_pwdinvisible" skin="skin_btn_pwdinvisible" pos="270,{0" show="1"></imgbtn>
 												<imgbtn name="btn_pwdvisible" skin="skin_btn_pwdvisible" pos="{0,{0" show="0"></imgbtn>
@@ -74,7 +82,11 @@
 										</page>
 										<page title="sms_login">
 											<caption pos="0,0,-0,-0">
-												<edit name="edit_password" pos="0,0,-100,-0" inset="35,0,5,0" class="cls_edit" cueText="请输入验证码" />
+												<edit name="edit_dycode" 
+													  pos="0,0,-100,-0" 
+													  inset="35,0,5,0" 
+													  font="face:微软雅黑,size:15"
+													  class="cls_edit" cueText="请输入验证码" />
 												<img pos="{0,{0,@26,@42" skin="skin_pwdimage"></img>
 												<imgbtn name="btn_getsms" pos="210,{0,@90,@42" skin="skin_btn_whitebkgnd" font="face:微软雅黑,size:12">获取验证码</imgbtn>
 											</caption>

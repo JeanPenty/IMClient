@@ -3,6 +3,13 @@
 <skin>
   	<imglist name="skin_traymenu_icons"	src="img:traymenu_icons" states="9"/>
 
+	<!--菜单相关资源-->
+	<imgframe name="skin_menu_bkg" src="PNG:IDB_PNG_MENUSKIN" left="8" top="4" right="8" bottom="12"/>
+	<imgframe name="skin_menu_sep" src="PNG:IDB_PNG_MENUSEP" />
+	<imglist name="skin_menu_itembkg" src="PNG:IDB_PNG_MENUITEMSKIN" states="2"/>
+	<imgframe name="skin_menu_check" src="PNG:IDB_PNG_MENUCHECK" />
+	<imglist name="skin_menu_triangle" src="PNG:IDB_MENUTRIANGLE" states="2" />
+
 	<imgframe name="skin_shadow" src="PNG:IDB_PNG_SHADOW"/>
 	<scrollbar name="skin_scrollbar" src="PNG:IDB_PNG_SB" margin="3" hasgripper="0"/>
 	
@@ -12,6 +19,9 @@
 	<imglist name="skin_btn_close" src="PNG:IDB_PNG_BTNCLOSE" states="3" />
 	<imglist name="skin_btn_menu" src="PNG:IDB_PNG_BTNMENU" states="3" />
 	<imglist name="skin_btn_skin" src="PNG:IDB_PNG_BTNSKIN" states="3" />
+
+	<imglist name="skin_btn_min40" src="PNG:IDB_PNG_BTNMIN40" states="4" />
+	<imglist name="skin_btn_close40" src="PNG:IDB_PNG_BTNCLOSE40" states="4" />
 
 	<imglist name="skin_cbx_btn" src="PNG:IDB_PNG_CBXBTN" states="3" />
 
@@ -33,4 +43,10 @@
 	<imglist name="skin_btn_qrlogin" src="PNG:IDB_PNG_BTNQRLOGIN" states="4" />
 	<imglist name="skin_btn_acclogin" src="PNG:IDB_PNG_BTNACCLOGIN" states="4" />
 	<imglist name="skin_btn_whitebkgnd" src="PNG:IDB_PNG_BTNWHITEBKGND" states="4" />
+
+	<imglist name="skin_btn_autologinoff" src="PNG:IDB_PNG_AUTOLOGINOFF" states="3" />
+	<imglist name="skin_btn_autologinon" src="PNG:IDB_PNG_AUTOLOGINON" states="3" />
+	<imglist name="skin_btn_logintool" src="PNG:IDB_PNG_LOGINTOOL" states="4" />
+	<imglist name="skin_btn_logintooldot" src="PNG:IDB_PNG_LOGINTOOLDOT" states="4" />
+	<imglist name="skin_state" src="PNG:IDB_PNG_STATE" states="3" />
 </skin>

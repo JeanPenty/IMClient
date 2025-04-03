@@ -29,6 +29,38 @@ void CLoginDlg::OnTimer(UINT_PTR idEvent)
 
 void CLoginDlg::OnKeyDown(TCHAR nChar, UINT nRepCnt, UINT nFlags)
 {
+	if (nChar == VK_RETURN)
+	{
+		BOOL ctrlDown = !(GetKeyState(nChar) & 0x8000);
+
+		if (!ctrlDown)
+		{
+			OnBnClickLogin();
+			return;
+		}
+	}
+
+	SetMsgHandled(FALSE);
+}
+
+void CLoginDlg::OnBnClickMin()
+{
+	ShowWindow(SW_MINIMIZE);
+}
+
+void CLoginDlg::OnBnClickClose()
+{
+	AnimateHostWindow(500, AW_BLEND | AW_HIDE);
+	DestroyWindow();
+}
+
+void CLoginDlg::OnBnClickTool()
+{
+	//
+}
+
+void CLoginDlg::OnBnClickToolDot()
+{
 	//
 }
 
@@ -111,12 +143,72 @@ void CLoginDlg::OnBnClickPwdInVisible()
 
 void CLoginDlg::OnBnClickOnline()
 {
-	//
+	MenuWrapper menu(L"menu_template", L"SMENU");
+	menu.AddMenu(_T("在线"), 1001, TRUE, FALSE);
+	menu.AddMenu(_T("离线"), 1002, TRUE, FALSE);
+
+	SImageButton* pBtnOnline = FindChildByName2<SImageButton>(L"btn_online");
+	CRect rtBtn = pBtnOnline->GetWindowRect();
+	ClientToScreen(&rtBtn);
+	POINT pt;
+	::GetCursorPos(&pt);
+	int ret = menu.ShowMenu(TPM_RETURNCMD, rtBtn.left, rtBtn.bottom, m_hWnd);
+	switch (ret)
+	{
+	case 1001:
+	{
+		SImageButton* pBtnOnline = FindChildByName2<SImageButton>(L"btn_online");
+		SImageButton* pBtnLeave = FindChildByName2<SImageButton>(L"btn_leave");
+		pBtnOnline->SetAttribute(L"show", L"1", FALSE);
+		pBtnLeave->SetAttribute(L"show", L"0", FALSE);
+	}
+	break;
+	case 1002:
+	{
+		SImageButton* pBtnOnline = FindChildByName2<SImageButton>(L"btn_online");
+		SImageButton* pBtnLeave = FindChildByName2<SImageButton>(L"btn_leave");
+		pBtnOnline->SetAttribute(L"show", L"0", FALSE);
+		pBtnLeave->SetAttribute(L"show", L"1", FALSE);
+	}
+	break;
+	default:
+		break;
+	}
 }
 
 void CLoginDlg::OnBnClickLeave()
 {
-	//
+	MenuWrapper menu(L"menu_template", L"SMENU");
+	menu.AddMenu(_T("在线"), 1001, TRUE, FALSE);
+	menu.AddMenu(_T("离线"), 1002, TRUE, FALSE);
+
+	SImageButton* pBtnOnline = FindChildByName2<SImageButton>(L"btn_online");
+	CRect rtBtn = pBtnOnline->GetWindowRect();
+	ClientToScreen(&rtBtn);
+	POINT pt;
+	::GetCursorPos(&pt);
+	int ret = menu.ShowMenu(TPM_RETURNCMD, rtBtn.left, rtBtn.bottom, m_hWnd);
+	switch (ret)
+	{
+	case 1001:
+	{
+		SImageButton* pBtnOnline = FindChildByName2<SImageButton>(L"btn_online");
+		SImageButton* pBtnLeave = FindChildByName2<SImageButton>(L"btn_leave");
+		pBtnOnline->SetAttribute(L"show", L"1", FALSE);
+		pBtnLeave->SetAttribute(L"show", L"0", FALSE);
+	}
+	break;
+	case 1002:
+	{
+		SImageButton* pBtnOnline = FindChildByName2<SImageButton>(L"btn_online");
+		SImageButton* pBtnLeave = FindChildByName2<SImageButton>(L"btn_leave");
+		pBtnOnline->SetAttribute(L"show", L"0", FALSE);
+		pBtnLeave->SetAttribute(L"show", L"1", FALSE);
+	}
+	break;
+	default:
+		break;
+	}
 }
 
 void CLoginDlg::OnBnClickGetSMS()

@@ -17,6 +17,12 @@
       <UniqueIdentifier>{acdd5875-52d3-40e0-a13b-2ad1031bb758}</UniqueIdentifier>
       <Extensions>idx;xml;png;gif;jpg;ico;lua;bmp</Extensions>
     </Filter>
+    <Filter Include="登录器">
+      <UniqueIdentifier>{305ba25f-a07b-48e3-887a-2c0e72905e48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="自定义控件">
+      <UniqueIdentifier>{73f16bd6-eca6-4aec-ab9b-cd30bc5d59fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license.txt" />
@@ -39,7 +45,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CLoginDlg.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>登录器</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuWrapper.cpp">
+      <Filter>自定义控件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,7 +73,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CLoginDlg.h">
-      <Filter>Header Files</Filter>
+      <Filter>登录器</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuWrapper.h">
+      <Filter>自定义控件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +110,9 @@
       <Filter>SoUI Resource</Filter>
     </Xml>
     <Xml Include="uires\xml\dlg_login.xml">
+      <Filter>SoUI Resource</Filter>
+    </Xml>
+    <Xml Include="uires\xml\menu_template.xml">
       <Filter>SoUI Resource</Filter>
     </Xml>
   </ItemGroup>

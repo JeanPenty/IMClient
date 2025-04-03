@@ -5,6 +5,8 @@
   <LAYOUT>
     <file name="XML_MAINWND" path="xml\dlg_main.xml"/>
 	  <file name="XML_DLG_LOGIN" path="xml\dlg_login.xml"/>
+	  
+	  
   </LAYOUT>
   
   <values>
@@ -14,6 +16,13 @@
   </values>
 
 	<PNG>
+		<!--菜单相关资源-->
+		<file name="IDB_PNG_MENUSKIN" path="image\menu\menu_skin.png" />
+		<file name="IDB_PNG_MENUSEP" path="image\menu\menu_sep.png" />
+		<file name="IDB_PNG_MENUITEMSKIN" path="image\menu\menu_itemskin.png" />
+		<file name="IDB_PNG_MENUCHECK" path="image\menu\menu_check.png" />
+		<file name="IDB_MENUTRIANGLE" path="image\menu\triangle.png" />
+		
 		<file name="IDB_PNG_SHADOW" path="image/shadow.png" />
 		<file name="IDB_PNG_SB" path="image\sb.png" />
 		
@@ -42,6 +51,15 @@
 		<file name="IDB_PNG_BTNACCLOGIN" path="image\PCLogin.png" />
 
 		<file name="IDB_PNG_BTNWHITEBKGND" path="image\white_bkgnd_btn.png" />
+
+		<file name="IDB_PNG_BTNMIN40" path="image\btn_min40.png" />
+		<file name="IDB_PNG_BTNCLOSE40" path="image\btn_close40.png" />
+		<file name="IDB_PNG_AUTOLOGINOFF" path="image\login\autologin_off.png"/>
+		<file name="IDB_PNG_AUTOLOGINON" path="image\login\autologin_off.png"/>
+		<file name="IDB_PNG_LOGINTOOL" path="image\login\login_tool.png"/>
+		<file name="IDB_PNG_LOGINTOOLDOT" path="image\login\login_tool_dot.png"/>
+
+		<file name="IDB_PNG_STATE" path="image\login\state.png" />
 	</PNG>
   <IMG>
     <file name="traymenu_icons" path="image\traymenu_icons.png"/>
@@ -55,5 +73,6 @@
   </translator>
   <SMENU>
     <file name="menu_tray" path="xml\menu_tray.xml"/>
+	<file name="menu_template" path="xml\menu_template.xml" />
   </SMENU>
 </resource>

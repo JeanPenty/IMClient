@@ -189,6 +189,7 @@
     <ClCompile Include="CLoginDlg.cpp" />
     <ClCompile Include="IMClient.cpp" />
     <ClCompile Include="MainDlg.cpp" />
+    <ClCompile Include="MenuWrapper.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -204,6 +205,7 @@
   <ItemGroup>
     <ClInclude Include="CLoginDlg.h" />
     <ClInclude Include="MainDlg.h" />
+    <ClInclude Include="MenuWrapper.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="trayicon\SShellNofityHwnd2.h" />
@@ -234,6 +236,7 @@
     <Xml Include="uires\values\string.xml" />
     <Xml Include="uires\xml\dlg_login.xml" />
     <Xml Include="uires\xml\dlg_main.xml" />
+    <Xml Include="uires\xml\menu_template.xml" />
     <Xml Include="uires\xml\menu_tray.xml" />
   </ItemGroup>
   <ItemGroup>

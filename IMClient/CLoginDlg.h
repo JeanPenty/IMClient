@@ -19,6 +19,11 @@ protected:
 	void OnTimer(UINT_PTR idEvent);
 	void OnKeyDown(TCHAR nChar, UINT nRepCnt, UINT nFlags);
 
+	void OnBnClickMin();
+	void OnBnClickClose();
+	void OnBnClickTool();
+	void OnBnClickToolDot();
+
 	void OnBnClickQQLogin();
 	void OnBnClickAccLogin();
 
@@ -35,6 +40,9 @@ protected:
 	void OnBnClickLogin();
 
 	EVENT_MAP_BEGIN()
+		EVENT_NAME_COMMAND(L"btn_min", OnBnClickMin)
+		EVENT_NAME_COMMAND(L"btn_close", OnBnClickClose)
+
 		EVENT_NAME_COMMAND(L"btn_qrlogin", OnBnClickQQLogin)
 		EVENT_NAME_COMMAND(L"btn_acclogin", OnBnClickAccLogin)
 		EVENT_NAME_COMMAND(L"check_sms_login", OnBnClickChkSMSLogin)
