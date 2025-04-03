@@ -74,7 +74,7 @@
 									</caption>
 									<caption pos="0,[0,-0,-0" colorBkgnd="#FFFFFF">
 										<imrichedit name="send_richedit"
-											pos="1,1,-20,-1"
+											pos="1,1,-1,-30"
 											bkgndBlend="1"
 											enabledragdrop="1"
 											autoSel="0"
@@ -89,6 +89,8 @@
 											inset="0,0,8,0"
 											cursor=""
 											sbWid="8"/>
+										
+										<imgbtn name="btn_send" pos="-65,[0,@60,@25" skin="skin_send" font="face:微软雅黑,size:12" text="发送" align="center" valign="center" cursor="hand"/>
 									</caption>
 								</caption>
 							</page>

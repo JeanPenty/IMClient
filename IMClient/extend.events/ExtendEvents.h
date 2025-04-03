@@ -107,7 +107,7 @@ namespace SOUI
 
         enum { EventID = EVT_RE_QUERY_ACCEPT };
 
-        RichFormatConv * Conv;
+        RichFormatConv* Conv;
     };
 
     class RichEditObj;
