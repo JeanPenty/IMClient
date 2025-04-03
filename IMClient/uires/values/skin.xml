@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<skin>
+  	<imglist name="skin_traymenu_icons"	src="img:traymenu_icons" states="9"/>
+
+	<imgframe name="skin_shadow" src="PNG:IDB_PNG_SHADOW"/>
+	<scrollbar name="skin_scrollbar" src="PNG:IDB_PNG_SB" margin="3" hasgripper="0"/>
+	
+	<imglist name="skin_btn_min" src="PNG:IDB_PNG_BTNMIN" states="3" />
+	<imglist name="skin_btn_max" src="PNG:IDB_PNG_BTNMAX" states="3" />
+	<imglist name="skin_btn_restore" src="PNG:IDB_PNG_BTNRESTORE" states="3" />
+	<imglist name="skin_btn_close" src="PNG:IDB_PNG_BTNCLOSE" states="3" />
+	<imglist name="skin_btn_menu" src="PNG:IDB_PNG_BTNMENU" states="3" />
+	<imglist name="skin_btn_skin" src="PNG:IDB_PNG_BTNSKIN" states="3" />
+
+	<imglist name="skin_cbx_btn" src="PNG:IDB_PNG_CBXBTN" states="3" />
+
+	<imglist name="skin_sms_login" src="PNG:IDB_PNG_SMSLOGIN" states="8" />
+	<imglist name="skin_acc_login" src="PNG:IDB_PNG_ACCLOGIN" states="8" />
+
+	<imgframe name="skin_accimage" src="PNG:IDB_PNG_ACCIMG"/>
+	<imgframe name="skin_pwdimage" src="PNG:IDB_PNG_PWDIMG"/>
+
+	<imglist name="skin_btn_online" src="PNG:IDB_PNG_ONLINE" states="4" />
+	<imglist name="skin_btn_leave" src="PNG:IDB_PNG_LEAVE" states="4" />
+	<imglist name="skin_btn_check" src="PNG:IDB_PNG_CHECK" states="8" />
+	<imgframe name="skin_alpha" src="PNG:IDB_PNG_ALPHA"/>
+
+	<imglist name="skin_btn_login" src="PNG:IDB_PNG_BTNLOGIN" states="4" />
+
+	<imglist name="skin_btn_pwdvisible" src="PNG:IDB_PNG_BTNPWDVISIBLE" states="3" />
+	<imglist name="skin_btn_pwdinvisible" src="PNG:IDB_PNG_BTNPWDINVISIBLE" states="3" />
+	<imglist name="skin_btn_qrlogin" src="PNG:IDB_PNG_BTNQRLOGIN" states="4" />
+	<imglist name="skin_btn_acclogin" src="PNG:IDB_PNG_BTNACCLOGIN" states="4" />
+	<imglist name="skin_btn_whitebkgnd" src="PNG:IDB_PNG_BTNWHITEBKGND" states="4" />
+</skin>

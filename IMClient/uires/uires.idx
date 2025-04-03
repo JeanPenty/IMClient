@@ -1,0 +1,59 @@
+﻿<resource>
+  <UIDEF>
+    <file name="XML_INIT" path="uidef\init.xml"/>
+  </UIDEF>
+  <LAYOUT>
+    <file name="XML_MAINWND" path="xml\dlg_main.xml"/>
+	  <file name="XML_DLG_LOGIN" path="xml\dlg_login.xml"/>
+  </LAYOUT>
+  
+  <values>
+  	<file name="string" path="values\string.xml"/>
+  	<file name="color" path="values\color.xml"/>
+  	<file name="skin" path="values\skin.xml"/>
+  </values>
+
+	<PNG>
+		<file name="IDB_PNG_SHADOW" path="image/shadow.png" />
+		<file name="IDB_PNG_SB" path="image\sb.png" />
+		
+		<file name="IDB_PNG_BTNMIN" path="image\btn_min.png" />
+		<file name="IDB_PNG_BTNMAX" path="image\btn_max.png" />
+		<file name="IDB_PNG_BTNRESTORE" path="image\btn_restore.png" />
+		<file name="IDB_PNG_BTNCLOSE" path="image\btn_close.png" />
+		<file name="IDB_PNG_BTNMENU" path="image\btn_menu.png" />
+		<file name="IDB_PNG_BTNSKIN" path="image\btn_skin.png" />
+
+		<file name="IDB_PNG_SMSLOGIN" path="image\sms_login.png" />
+		<file name="IDB_PNG_ACCLOGIN" path="image\acc_login.png" />
+
+		<file name="IDB_PNG_CBXBTN" path="image\cbx_btn.png" />
+		<file name="IDB_PNG_ACCIMG" path="image\account.png" />
+		<file name="IDB_PNG_PWDIMG" path="image\password.png" />
+		<file name="IDB_PNG_ONLINE" path="image\online.png" />
+		<file name="IDB_PNG_LEAVE" path="image\leave.png" />
+		<file name="IDB_PNG_CHECK" path="image\check_btn.png" />
+		<file name="IDB_PNG_ALPHA" path="image\alpha.png" />
+		<file name="IDB_PNG_BTNLOGIN" path="image\login_btn.png" />
+
+		<file name="IDB_PNG_BTNPWDVISIBLE" path="image\passwordvisible.png" />
+		<file name="IDB_PNG_BTNPWDINVISIBLE" path="image\passwordinvisible.png" />
+		<file name="IDB_PNG_BTNQRLOGIN" path="image\QRLogin.png" />
+		<file name="IDB_PNG_BTNACCLOGIN" path="image\PCLogin.png" />
+
+		<file name="IDB_PNG_BTNWHITEBKGND" path="image\white_bkgnd_btn.png" />
+	</PNG>
+  <IMG>
+    <file name="traymenu_icons" path="image\traymenu_icons.png"/>
+  </IMG>
+  <ICON>
+    <file name="ICON_LOGO"  path="image\soui.ico"/>
+  </ICON>
+  <translator>
+    <file name="lang_cn"  path="translator\lang_cn.xml"/>
+    <file name="lang_jp"  path="translator\lang_jp.xml"/>
+  </translator>
+  <SMENU>
+    <file name="menu_tray" path="xml\menu_tray.xml"/>
+  </SMENU>
+</resource>

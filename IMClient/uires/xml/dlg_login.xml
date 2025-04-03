@@ -1,0 +1,122 @@
+﻿<?xml version="1.0"?>
+<SOUI name="window" title="EiisysIM"
+      bigIcon="ICON_LOGO:32"
+      smallIcon="ICON_LOGO:16"
+      width="750" 
+      height="480" 
+      margin="5,5,5,5"
+      appWnd="1"
+      translucent="1">
+	<root cache="1">
+		<window pos="0,0,-0,-0" skin="skin_shadow">
+			<caption pos="10,10,-10,-10" colorBkgnd="#FFFFFF">
+				<imgbtn name="btn_close" pos="-40,0" skin="skin_btn_close"/>
+				<imgbtn name="btn_min" pos="-70,0" skin="skin_btn_min"/>
+				<caption pos="0,[0,@250,-0" colorBkgnd="rgba(100,255,155,50)">
+					<!--用来放置广告轮播banner或者其他登录动画-->
+				</caption>
+				<caption pos="[0,{0,-0,-0" colorBkgnd="#FFFFFF">
+					<!--放置个logo-->
+					<caption pos="100,[20,@300,@70" colorBkgnd="#FF00FF">
+						<text pos="0,0,-0,-0" align="center" valign="center">放置文本logo</text>
+					</caption>
+					<caption pos="0,[0,-0,-0" colorBkgnd="#FFFFFF">
+						<tabctrl name="tab_accqr_login" pos="0,0,-0,-0" tabHeight="0">
+							<page title="acc_login">
+								<caption pos="0,0,-0,-0">
+									<!--用来放置账号、密码等数据edit相关-->
+									<check name="check_sms_login"
+										   pos="310,[30"
+										   skin="skin_sms_login"
+										   font="face:微软雅黑,size:12"
+										   show="1"
+										   focusable="0"
+										   cursor="hand">短信快捷登录</check>
+									<check name="check_acc_login"
+										   pos="{0,{0"
+										   skin="skin_acc_login"
+										   font="face:微软雅黑,size:12"
+										   show="0"
+										   focusable="0"
+										   cursor="hand">账号密码登录</check>
+									<comboview name="cbx_account" pos="100,[10,@300,@42" btnSkin="skin_cbx_btn" dropDown="0" focusable="0" dropHeight="150" animateTime="1" class="cls_edit">
+										<liststyle colorBkgnd="rgb(240,240,240)" sbSkin="skin_scrollbar" sbWid="8">
+											<template itemHeight="40"
+													  colorHover="rgb(210,210,210)"
+													  colorSelected="rgb(190,190,190)"
+													  font="face:微软雅黑,size:13">
+												<text name="account" pos="10,8">account</text>
+												<imgbtn name="btn_del" pos="-30,10,@20,@20"  clipClient="1"/>
+											</template>
+										</liststyle>
+										<editstyle vcenter="1"
+												   pos="0,0,-0,-0"
+												   inset="35,0,0,0"
+												   colorText="rgb(58,0,58)"
+												   align="left"
+												   autoSel="1"
+												   transparent="1"
+												   wordWrap="1"
+												   cueText="输入账号">
+											<window pos="{-35,0,@35,-0" colorBkgnd="#FFFFFF">
+												<img pos="0,0,@26,@42" skin="skin_accimage"></img>
+											</window>
+										</editstyle>
+									</comboview>
+									<tabctrl name="tab_accsms_login" pos="{0,[20,@300,@42" tabHeight="0">
+										<page title="acc_login">
+											<caption pos="0,0,-0,-0">
+												<edit name="edit_password" pos="0,0,-0,-0" inset="35,0,40,0" class="cls_edit" password="1"  passwordChar="●" cueText="请输入密码" />
+												<img pos="{0,{0,@26,@42" skin="skin_pwdimage"></img>
+												<imgbtn name="btn_pwdinvisible" skin="skin_btn_pwdinvisible" pos="270,{0" show="1"></imgbtn>
+												<imgbtn name="btn_pwdvisible" skin="skin_btn_pwdvisible" pos="{0,{0" show="0"></imgbtn>
+											</caption>
+										</page>
+										<page title="sms_login">
+											<caption pos="0,0,-0,-0">
+												<edit name="edit_password" pos="0,0,-100,-0" inset="35,0,5,0" class="cls_edit" cueText="请输入验证码" />
+												<img pos="{0,{0,@26,@42" skin="skin_pwdimage"></img>
+												<imgbtn name="btn_getsms" pos="210,{0,@90,@42" skin="skin_btn_whitebkgnd" font="face:微软雅黑,size:12">获取验证码</imgbtn>
+											</caption>
+										</page>
+									</tabctrl>
+
+
+									<imgbtn name="btn_online" skin="skin_btn_online" pos="{0,[10"></imgbtn>
+									<imgbtn name="btn_leave" skin="skin_btn_leave" pos="{0,{0" show="0"></imgbtn>
+
+									<check name="chk_remember_pwd" skin="skin_btn_check" pos="[10,{4" focusable="0" font="face:微软雅黑,size:12">记住密码</check>
+									<check name="chk_auto_login" skin="skin_btn_check" pos="[20,{0" focusable="0" font="face:微软雅黑,size:12">自动登录</check>
+									<button name="btn_forget_pwd"
+											pos="[20,{0"
+											colorBkgnd="#FF0000"
+											focusable="0"
+											font="face:微软雅黑,size:12"
+											skin="skin_alpha"
+											colorText="#000000"
+											colorTextHover="#FF0000"
+											colorTextPush="#FF0000"
+											cursor="hand">忘记密码？</button>
+
+									<imgbtn name="btn_login" pos="100,[20,@300,@48" skin="skin_btn_login"  cursor="hand"></imgbtn>
+
+									<window pos="{0,[5,@300,@20">
+										<text pos="0,0,-0,-0" align="center" valign="center" font="face:微软雅黑,size:12" colorText="rgb(128,128,128)" >Copyright 2025-2099 XXX科技 版权所有</text>
+									</window>
+
+									<imgbtn name="btn_qrlogin" pos="-66,-66" skin="skin_btn_qrlogin" cursor="hand"></imgbtn>
+								</caption>
+							</page>
+							<page title="qr_login">
+								<caption pos="0,0,-0,-0">
+									<imgbtn name="btn_acclogin" pos="-66,-66" skin="skin_btn_acclogin" cursor="hand"></imgbtn>
+								</caption>
+							</page>
+						</tabctrl>
+					</caption>
+
+				</caption>
+			</caption>
+		</window>
+	</root>
+</SOUI>
