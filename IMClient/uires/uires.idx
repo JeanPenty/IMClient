@@ -5,7 +5,7 @@
   <LAYOUT>
     <file name="XML_MAINWND" path="xml\dlg_main.xml"/>
 	  <file name="XML_DLG_LOGIN" path="xml\dlg_login.xml"/>
-	  
+	  <file name="XML_DLG_IM" path="xml\dlg_im.xml"/>
 	  
   </LAYOUT>
   

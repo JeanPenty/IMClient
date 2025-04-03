@@ -1,0 +1,59 @@
+﻿<SOUI trCtx="dlg_im"
+      title="杨金鹏 - XXX科技有限公司"
+      bigIcon="ICON_LOGO:32"
+      smallIcon="ICON_LOGO:16"
+      width="920"
+      height="650"
+      margin="10,10,10,10"
+      minsize="960,600"
+      resizable="1"
+      appWnd="1"
+      wndType="normal"
+      translucent="1"
+      sendWheel2Hover="1"
+      alpha="255">
+	<root>
+		<window pos="0,0,-0,-0" skin="skin_shadow">
+			<caption pos="10,10,-10,-10" colorBkgnd="#FFFFFF">
+				<caption pos="0,0,@60,-0" colorBkgnd="#2E2E2E">
+					<!--左侧功能栏-->
+				</caption>
+				<caption pos="[0,{0,@200,-0" colorBkgnd="#F7F7F7">
+					<!--最近会话、联系人列表等列表栏-->
+				</caption>
+				<caption pos="[0,{0,-0,-0" colorBkgnd="#FFFFFF">
+					<!--右侧-->
+					<caption pos="0,0,-300,@60" colorBkgnd="#FFFFFF">
+						<!--用来放置聊天对象名-->
+					</caption>
+					<caption pos="[0,{0,-0,@60" colorBkgnd="#FFFFFF">
+						<!--用来放置关闭、最大化、最小化、以及聊天操作等的按钮-->
+						<imgbtn name="btn_close" pos="-30,0" skin="skin_btn_close"/>
+						<imgbtn name="btn_max" pos="-60,0" skin="skin_btn_max"/>
+						<imgbtn name="btn_restore" pos="-60,0" show="0" skin="skin_btn_restore"/>
+						<imgbtn name="btn_min" pos="-90,0" skin="skin_btn_min"/>
+					</caption>
+					<caption pos="0,[0,-0,-0" colorBkgnd="#FFFFFF">
+						<!--功能区，-->
+						<tabctrl pos="0,0,-0,-0" name="tab_common_area" tabHeight="0">
+							<page title="chat">
+								<caption pos="0,0,-0,-0">
+									<!--分为三部分，即消息接收区、功能按钮区、消息发送区-->
+									<caption pos="0,0,-0,-180" colorBkgnd="#0000FF">
+										
+									</caption>
+									<caption pos="0,[0,-0,@30" colorBkgnd="#FF0000">
+
+									</caption>
+									<caption pos="0,[0,-0,-0" colorBkgnd="#00FF00">
+
+									</caption>
+								</caption>
+							</page>
+						</tabctrl>
+					</caption>
+				</caption>
+			</caption>
+		</window>
+	</root>
+</SOUI>

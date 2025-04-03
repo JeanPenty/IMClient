@@ -1,8 +1,14 @@
 #pragma once
+
 class CLoginDlg : public SHostWnd
 {
 public:
-	CLoginDlg();
+	struct IListen 
+	{
+		virtual void ILoginDlgLoginCB() = 0;
+	};
+public:
+	CLoginDlg(IListen* pListen);
 	~CLoginDlg();
 
 	//定义一个登录方式
@@ -67,5 +73,7 @@ protected:
 
 private:
 	LoginType m_enLoginType;
+
+	IListen* m_pListen;
 };
 

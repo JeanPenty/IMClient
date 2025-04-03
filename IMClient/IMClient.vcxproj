@@ -186,6 +186,7 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CImDlg.cpp" />
     <ClCompile Include="CLoginDlg.cpp" />
     <ClCompile Include="IMClient.cpp" />
     <ClCompile Include="MainDlg.cpp" />
@@ -203,6 +204,7 @@
     <ResourceCompile Include="IMClient.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CImDlg.h" />
     <ClInclude Include="CLoginDlg.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="MenuWrapper.h" />
@@ -234,6 +236,7 @@
     <Xml Include="uires\values\color.xml" />
     <Xml Include="uires\values\skin.xml" />
     <Xml Include="uires\values\string.xml" />
+    <Xml Include="uires\xml\dlg_im.xml" />
     <Xml Include="uires\xml\dlg_login.xml" />
     <Xml Include="uires\xml\dlg_main.xml" />
     <Xml Include="uires\xml\menu_template.xml" />

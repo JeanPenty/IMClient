@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "CLoginDlg.h"
 
-CLoginDlg::CLoginDlg()
+CLoginDlg::CLoginDlg(IListen* pListen)
 	: SHostWnd(_T("LAYOUT:XML_DLG_LOGIN"))
+	, m_pListen(pListen)
 {
 	//
 }
@@ -219,4 +220,6 @@ void CLoginDlg::OnBnClickGetSMS()
 void CLoginDlg::OnBnClickLogin()
 {
 	//µã»÷µÇÂ¼
+
+	m_pListen->ILoginDlgLoginCB();
 }

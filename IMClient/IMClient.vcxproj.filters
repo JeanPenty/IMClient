@@ -50,6 +50,9 @@
     <ClCompile Include="MenuWrapper.cpp">
       <Filter>自定义控件</Filter>
     </ClCompile>
+    <ClCompile Include="CImDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IMClient.rc">
@@ -77,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="MenuWrapper.h">
       <Filter>自定义控件</Filter>
+    </ClInclude>
+    <ClInclude Include="CImDlg.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +119,9 @@
       <Filter>SoUI Resource</Filter>
     </Xml>
     <Xml Include="uires\xml\menu_template.xml">
+      <Filter>SoUI Resource</Filter>
+    </Xml>
+    <Xml Include="uires\xml\dlg_im.xml">
       <Filter>SoUI Resource</Filter>
     </Xml>
   </ItemGroup>
