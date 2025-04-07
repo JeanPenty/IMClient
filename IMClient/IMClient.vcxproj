@@ -307,6 +307,8 @@
     <Xml Include="uires\xml\menu_template.xml" />
     <Xml Include="uires\xml\menu_tray.xml" />
     <Xml Include="uires\xml\page_chat_filehelper.xml" />
+    <Xml Include="uires\xml\page_chat_group.xml" />
+    <Xml Include="uires\xml\page_chat_personal.xml" />
     <Xml Include="uires\xml\page_collect.xml" />
     <Xml Include="uires\xml\page_comm_dyh.xml" />
     <Xml Include="uires\xml\page_comm_group.xml" />

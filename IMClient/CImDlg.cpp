@@ -324,6 +324,11 @@ void CImDlg::OnMessageItemClick(int& nIndex)
 	CLvMessageAdapter::ItemData* pData = m_pLvMessageAdapter->GetItemData(nIndex);
 	int nPage = pTabChatArea->GetPageIndex(S_CA2W(pData->m_strID.c_str()), TRUE);
 	pTabChatArea->SetCurSel(nPage);
+
+	m_pLvMessageAdapter->GetItemData(nIndex);
+
+	CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType = pData->m_nType;
+	CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID = pData->m_strID;
 }
 
 void CImDlg::OnMessageItemRClick(int& nIndex)
@@ -361,7 +366,97 @@ void CImDlg::ContactTVItemClick(int nGID, const std::string& strID)
 
 void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 {
-	//
+	if (nGID == 1 || nGID == 2 || nGID == 3) return;
+	
+	SStringW sstrID = S_CA2W(strID.c_str());
+	if (4 == nGID)  //group
+	{
+		STabCtrl* pMainOptTab = FindChildByName2<STabCtrl>(L"tab_main_opt");
+
+		SImageButton* pBtnMessage = FindChildByName2<SImageButton>(L"btn_message");
+		SImageButton* pBtnContact = FindChildByName2<SImageButton>(L"btn_contact");
+		SImageButton* pBtnCollect = FindChildByName2<SImageButton>(L"btn_collect");
+
+		pBtnMessage->SetCheck(TRUE);
+		pBtnContact->SetCheck(FALSE);
+		pBtnCollect->SetCheck(FALSE);
+		pMainOptTab->SetCurSel(0);
+
+		m_pLvMessageAdapter->AddItem(2, sstrID);
+
+		STabCtrl* pTabCharArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+		SStringW sstrPage;
+		sstrPage.Format(L"<page title='%s'><include src='layout:XML_PAGECOMMON_CHATGROUP'/></page>", sstrID);
+		pTabCharArea->InsertItem(sstrPage);
+		SWindow* pPage = pTabCharArea->GetPage(sstrID, TRUE);
+		SASSERT(pPage);
+		SImRichEdit* pRecvRichedit = pPage->FindChildByName2<SImRichEdit>(L"recv_richedit");
+		SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
+		SASSERT(pRecvRichedit);
+		SASSERT(pSendRichedit);
+
+		SUBSCRIBE(pRecvRichedit, EVT_RE_SCROLLBAR, CImDlg::OnRecvRichEditScrollEvent);
+		SUBSCRIBE(pRecvRichedit, EVT_CTXMENU, CImDlg::OnRecvRichEditScrollEvent);
+		SUBSCRIBE(pRecvRichedit, EVT_RE_OBJ, CImDlg::OnRecvRichEditObjEvent);
+
+		SUBSCRIBE(pSendRichedit, EVT_RE_QUERY_ACCEPT, CImDlg::OnSendRichEditAcceptData);
+		SUBSCRIBE(pSendRichedit, EVT_RE_NOTIFY, CImDlg::OnSendRichEditEditorChange);
+		SUBSCRIBE(pSendRichedit, EVT_CTXMENU, CImDlg::OnSendRichEditMenu);
+		SUBSCRIBE(pSendRichedit, EVT_RE_OBJ, CImDlg::OnRecvRichEditObjEvent);
+
+		AddFetchMoreBlock(pRecvRichedit);
+
+		int nPage = pTabCharArea->GetPageIndex(sstrID, TRUE);
+		pTabCharArea->SetCurSel(nPage);
+		m_pLvMessageAdapter->SetCurSel(sstrID);
+
+		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType = 2;
+		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID = strID;
+	}
+	else if (5 == nGID) //Personal
+	{
+		STabCtrl* pMainOptTab = FindChildByName2<STabCtrl>(L"tab_main_opt");
+
+		SImageButton* pBtnMessage = FindChildByName2<SImageButton>(L"btn_message");
+		SImageButton* pBtnContact = FindChildByName2<SImageButton>(L"btn_contact");
+		SImageButton* pBtnCollect = FindChildByName2<SImageButton>(L"btn_collect");
+
+		pBtnMessage->SetCheck(TRUE);
+		pBtnContact->SetCheck(FALSE);
+		pBtnCollect->SetCheck(FALSE);
+		pMainOptTab->SetCurSel(0);
+
+		m_pLvMessageAdapter->AddItem(1, sstrID);
+
+		STabCtrl* pTabCharArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+		SStringW sstrPage;
+		sstrPage.Format(L"<page title='%s'><include src='layout:XML_PAGECOMMON_CHATPERSONAL'/></page>", sstrID);
+		pTabCharArea->InsertItem(sstrPage);
+		SWindow* pPage = pTabCharArea->GetPage(sstrID, TRUE);
+		SASSERT(pPage);
+		SImRichEdit* pRecvRichedit = pPage->FindChildByName2<SImRichEdit>(L"recv_richedit");
+		SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
+		SASSERT(pRecvRichedit);
+		SASSERT(pSendRichedit);
+
+		SUBSCRIBE(pRecvRichedit, EVT_RE_SCROLLBAR, CImDlg::OnRecvRichEditScrollEvent);
+		SUBSCRIBE(pRecvRichedit, EVT_CTXMENU, CImDlg::OnRecvRichEditScrollEvent);
+		SUBSCRIBE(pRecvRichedit, EVT_RE_OBJ, CImDlg::OnRecvRichEditObjEvent);
+
+		SUBSCRIBE(pSendRichedit, EVT_RE_QUERY_ACCEPT, CImDlg::OnSendRichEditAcceptData);
+		SUBSCRIBE(pSendRichedit, EVT_RE_NOTIFY, CImDlg::OnSendRichEditEditorChange);
+		SUBSCRIBE(pSendRichedit, EVT_CTXMENU, CImDlg::OnSendRichEditMenu);
+		SUBSCRIBE(pSendRichedit, EVT_RE_OBJ, CImDlg::OnRecvRichEditObjEvent);
+
+		AddFetchMoreBlock(pRecvRichedit);
+
+		int nPage = pTabCharArea->GetPageIndex(sstrID, TRUE);
+		pTabCharArea->SetCurSel(nPage);
+		m_pLvMessageAdapter->SetCurSel(sstrID);
+
+		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType = 1;
+		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID = strID;
+	}
 }
 
 void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
@@ -371,8 +466,6 @@ void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
 
 void CImDlg::OnBnClickSend()
 {
-	SImRichEdit* pRecvRichedit = FindChildByName2<SImRichEdit>(L"recv_richedit");
-	SImRichEdit* pSendRichedit = FindChildByName2<SImRichEdit>(L"send_richedit");
 
 // 	CHARRANGE chr = { 0, -1 };
 // 	SStringW strContent = pSendRichedit->GetSelectedContent(&chr);
@@ -386,6 +479,11 @@ void CImDlg::OnBnClickSend()
 // 	{
 // 	}
 
+	STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+	SWindow* pPage = pTabChatArea->GetPage(S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str()));
+
+	SImRichEdit* pRecvRichedit = pPage->FindChildByName2<SImRichEdit>(L"recv_richedit");
+	SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
 	SStringW sstrTmp = pSendRichedit->GetWindowTextW();
 
 	//测试放置消息发送时间
@@ -433,6 +531,11 @@ void CImDlg::OnBnClickSend()
 		L"%s"
 		L"</RichEditContent>", sstrText, pEmpty, pEmpty);
 	pRecvRichedit->InsertContent(sstrContent, RECONTENT_LAST);
+
+	pSendRichedit->Clear();
+
+	//消息发送之后需要更新最近会话列表中的消息内容、消息时间等信息
+	//TODO:
 }
 
 bool CImDlg::OnSendRichEditAcceptData(EventArgs* pEvt)
@@ -454,7 +557,7 @@ bool CImDlg::OnSendRichEditEditorChange(EventArgs* pEvt)
 	EventRENotify* pReNotify = (EventRENotify*)pEvt;
 	if (pReNotify->iNotify == EN_CHANGE)
 	{
-		//此处主要做在输入框输入@时展示群程序列表
+		//此处主要做在输入框输入@时展示群成员列表
 	}
 
 	return true;

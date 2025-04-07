@@ -26,6 +26,8 @@ public:
 	//last_talk time
 	std::map<std::string, std::string>			m_mapLasttalkTime;		//id-time
 
+
+	LVMESSAGE_SURSEL	m_LvMessageCurSel;
 public:
 	std::string GenerateUUID();
 	void OperateShamDate();		

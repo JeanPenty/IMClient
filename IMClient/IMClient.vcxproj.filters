@@ -370,6 +370,12 @@
     <Xml Include="uires\xml\page_collect.xml">
       <Filter>SoUI Resource\企业通讯</Filter>
     </Xml>
+    <Xml Include="uires\xml\page_chat_group.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_chat_personal.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Image Include="uires\image\soui.ico">

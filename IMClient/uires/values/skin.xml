@@ -50,7 +50,6 @@
 	<imglist name="skin_btn_logintooldot" src="PNG:IDB_PNG_LOGINTOOLDOT" states="4" />
 	<imglist name="skin_state" src="PNG:IDB_PNG_STATE" states="3" />
 
-
 	<imglist name="skin_emotion" src="PNG:IDB_PNG_EMOTION" states="3" />
 	<imglist name="skin_image" src="PNG:IDB_PNG_IMAGE" states="3" />
 	<imglist name="skin_file" src="PNG:IDB_PNG_FILE" states="3" />

@@ -20,6 +20,8 @@
 	  <file name="XML_PAGECOMMON_GROUP" path="xml\page_comm_group.xml" />
 	  
 	  <file name="XML_PAGECOMMON_FILEHELPER" path="xml\page_chat_filehelper.xml" />
+	  <file name="XML_PAGECOMMON_CHATGROUP" path="xml\page_chat_group.xml" />
+	  <file name="XML_PAGECOMMON_CHATPERSONAL" path="xml\page_chat_personal.xml" />
   </LAYOUT>
   
   <values>

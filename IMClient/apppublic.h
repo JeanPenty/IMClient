@@ -13,12 +13,11 @@ typedef struct times
 	int Second;
 }Times;
 
-
-typedef struct LasttalkCurSel
+typedef struct LvMessageCurSel
 {
 	std::string m_strID;
 	int			m_nType;
-}LASTTALK_CURSEL;
+}LVMESSAGE_SURSEL;
 
 typedef struct struPersonalInfo
 {
