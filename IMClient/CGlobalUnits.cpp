@@ -185,7 +185,7 @@ void CGlobalUnits::OperateShamDate()
 
 	//添加联系人的假数据
 	{
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			std::string strUUID = GenerateUUID();
 			int nNameIndex = rand() % 91;
@@ -193,7 +193,7 @@ void CGlobalUnits::OperateShamDate()
 
 			std::ostringstream os;
 			os.str("");
-			os << strTempName << i;
+			os << strTempName;
 			std::string strName = os.str();
 			int nAreaIndex = rand() % 33;
 			std::string strArea = shamAreas[nAreaIndex];

@@ -47,6 +47,9 @@
     <Filter Include="适配器">
       <UniqueIdentifier>{f3a4fa31-3291-4327-b1bb-c46f47bc8551}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SoUI Resource\企业通讯\菜单">
+      <UniqueIdentifier>{b891901e-5b4e-4101-a08e-7bee870e0f79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license.txt" />
@@ -375,6 +378,9 @@
     </Xml>
     <Xml Include="uires\xml\page_chat_personal.xml">
       <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\menu\menu_contactlist.xml">
+      <Filter>SoUI Resource\企业通讯\菜单</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

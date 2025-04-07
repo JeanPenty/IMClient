@@ -135,5 +135,6 @@
   <SMENU>
     <file name="menu_tray" path="xml\menu_tray.xml"/>
 	<file name="menu_template" path="xml\menu_template.xml" />
+	  <file name="menu_contactlist" path="xml\menu\menu_contactlist.xml" />
   </SMENU>
 </resource>

@@ -461,7 +461,66 @@ void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 
 void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
 {
-	//
+	if (nGID == 1 || nGID == 2 || nGID == 3) return;
+	SStringW sstrID = S_CA2W(strID.c_str());
+
+	SStringW sstrFont = L"face:微软雅黑,size:12";
+	if (4 ==  nGID)
+	{
+		MenuWrapper menu(L"menu_contactlist", L"SMENU");
+		menu.AddMenu(_T("发送消息"), 1, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("设置备注"), 2, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("从通讯录中删除"), 3, TRUE, FALSE, sstrFont);
+		menu.AddSeperator();
+		menu.AddMenu(_T("退出群聊"), 4, TRUE, FALSE, sstrFont);
+
+		int ret = 0;
+		POINT pt;
+		::GetCursorPos(&pt);
+
+		ret = menu.ShowMenu(TPM_RETURNCMD, pt.x, pt.y, m_hWnd);
+		switch (ret)
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		default:
+			break;
+		}
+	}
+	else if (5 == nGID)
+	{
+		MenuWrapper menu(L"menu_contactlist", L"SMENU");
+		menu.AddMenu(_T("发送消息"), 1, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("设为星标朋友"), 2, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("发送名片"), 3, TRUE, FALSE, sstrFont);
+		menu.AddSeperator();
+		menu.AddMenu(_T("删除好友"), 4, TRUE, FALSE, sstrFont);
+
+		int ret = 0;
+		POINT pt;
+		::GetCursorPos(&pt);
+
+		ret = menu.ShowMenu(TPM_RETURNCMD, pt.x, pt.y, m_hWnd);
+		switch (ret)
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void CImDlg::OnBnClickSend()

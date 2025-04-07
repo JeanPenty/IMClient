@@ -304,6 +304,7 @@
     <Xml Include="uires\xml\dlg_im.xml" />
     <Xml Include="uires\xml\dlg_login.xml" />
     <Xml Include="uires\xml\dlg_main.xml" />
+    <Xml Include="uires\xml\menu\menu_contactlist.xml" />
     <Xml Include="uires\xml\menu_template.xml" />
     <Xml Include="uires\xml\menu_tray.xml" />
     <Xml Include="uires\xml\page_chat_filehelper.xml" />
