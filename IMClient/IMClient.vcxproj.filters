@@ -38,6 +38,15 @@
     <Filter Include="extend.skins">
       <UniqueIdentifier>{9dff3e8a-526b-44f1-8c58-6eb31eb3ecbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="全局类">
+      <UniqueIdentifier>{58a63bfb-f612-4f39-8a2d-cea674837b80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SoUI Resource\企业通讯">
+      <UniqueIdentifier>{484590dc-2b6f-453c-a39a-c26651834003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="适配器">
+      <UniqueIdentifier>{f3a4fa31-3291-4327-b1bb-c46f47bc8551}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license.txt" />
@@ -132,7 +141,28 @@
       <Filter>extend.skins</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>全局类</Filter>
+    </ClCompile>
+    <ClCompile Include="CGlobalUnits.cpp">
+      <Filter>全局类</Filter>
+    </ClCompile>
+    <ClCompile Include="CLvMessageAdapter.cpp">
+      <Filter>适配器</Filter>
+    </ClCompile>
+    <ClCompile Include="CTvContactAdapter.cpp">
+      <Filter>适配器</Filter>
+    </ClCompile>
+    <ClCompile Include="CLvNewFriendAdapter.cpp">
+      <Filter>适配器</Filter>
+    </ClCompile>
+    <ClCompile Include="CGZHTileViewAdapter.cpp">
+      <Filter>适配器</Filter>
+    </ClCompile>
+    <ClCompile Include="CDYHTileViewAdapter.cpp">
+      <Filter>适配器</Filter>
+    </ClCompile>
+    <ClCompile Include="CGrpMbrTileViewAdapter.cpp">
+      <Filter>适配器</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,7 +274,31 @@
       <Filter>extend.skins</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">
-      <Filter>Header Files</Filter>
+      <Filter>全局类</Filter>
+    </ClInclude>
+    <ClInclude Include="apppublic.h">
+      <Filter>全局类</Filter>
+    </ClInclude>
+    <ClInclude Include="CGlobalUnits.h">
+      <Filter>全局类</Filter>
+    </ClInclude>
+    <ClInclude Include="CLvMessageAdapter.h">
+      <Filter>适配器</Filter>
+    </ClInclude>
+    <ClInclude Include="CTvContactAdapter.h">
+      <Filter>适配器</Filter>
+    </ClInclude>
+    <ClInclude Include="CLvNewFriendAdapter.h">
+      <Filter>适配器</Filter>
+    </ClInclude>
+    <ClInclude Include="CGZHTileViewAdapter.h">
+      <Filter>适配器</Filter>
+    </ClInclude>
+    <ClInclude Include="CDYHTileViewAdapter.h">
+      <Filter>适配器</Filter>
+    </ClInclude>
+    <ClInclude Include="CGrpMbrTileViewAdapter.h">
+      <Filter>适配器</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -283,8 +337,38 @@
     <Xml Include="uires\xml\menu_template.xml">
       <Filter>SoUI Resource</Filter>
     </Xml>
+    <Xml Include="uires\xml\richeditole\fetchmoreole.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_chat_filehelper.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_msg.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
     <Xml Include="uires\xml\dlg_im.xml">
-      <Filter>SoUI Resource</Filter>
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_contact.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_comm_dyh.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_comm_group.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_comm_gzh.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_comm_newfriends.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_comm_personal.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
+    </Xml>
+    <Xml Include="uires\xml\page_collect.xml">
+      <Filter>SoUI Resource\企业通讯</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

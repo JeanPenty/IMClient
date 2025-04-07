@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<include>
+	<caption pos="0,0,-0,-0">
+		<caption pos="0,0,@160,-0" colorBkgnd="rgb(0,238,0)">
+
+		</caption>
+		<caption pos="[0,50,-0,-0" colorBkgnd="rgb(230,0,238)">
+		</caption>
+	</caption>
+</include>

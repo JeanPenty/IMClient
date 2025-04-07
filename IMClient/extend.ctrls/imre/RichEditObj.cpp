@@ -1260,8 +1260,8 @@ namespace SOUI
     {
         rcLine.SetRectEmpty();
 
-        int ncpStart;
-        int nLength;
+        static int ncpStart;
+        static int nLength;
         _pObjHost->SendMessage(EM_LINEINDEX, nLineNo, 0, (LRESULT*)&ncpStart);
         _pObjHost->SendMessage(EM_LINELENGTH, ncpStart, 0, (LRESULT*)&nLength);
 
@@ -1295,8 +1295,8 @@ namespace SOUI
 
     BOOL RichEditPara::GetAutoWrapped()
     {
-        int lineStart = 0;
-        int lineEnd = 0;
+        static int lineStart = 0;
+        static int lineEnd = 0;
 
         _pObjHost->SendMessage(EM_EXLINEFROMCHAR, 0, _contentChr.cpMin, (LRESULT*)&lineStart);
         _pObjHost->SendMessage(EM_EXLINEFROMCHAR, 0, _contentChr.cpMax, (LRESULT*)&lineEnd);
@@ -1308,8 +1308,8 @@ namespace SOUI
     BOOL RichEditPara::CalculateRect()
     {
         CRect lineRect;
-        int lineStart = 0;
-        int lineEnd = 0;
+        static int lineStart = 0;
+        static int lineEnd = 0;
 
         _objRect.SetRectEmpty();
         _pObjHost->SendMessage(EM_EXLINEFROMCHAR, 0, _contentChr.cpMin, (LRESULT*)&lineStart);

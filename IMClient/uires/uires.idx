@@ -6,7 +6,20 @@
     <file name="XML_MAINWND" path="xml\dlg_main.xml"/>
 	  <file name="XML_DLG_LOGIN" path="xml\dlg_login.xml"/>
 	  <file name="XML_DLG_IM" path="xml\dlg_im.xml"/>
+
+	  <file name="FetchMoreOleLayout" path="xml\richeditole\fetchmoreole.xml" />
+
+	  <file name="XML_PAGE_MSG" path="xml\page_msg.xml" />
+	  <file name="XML_PAGE_CONTACT" path="xml\page_contact.xml" />
+	  <file name="XML_PAGE_COLLECT" path="xml\page_collect.xml" />
+
+	  <file name="XML_PAGECOMMON_NEWFRIEND" path="xml\page_comm_newfriends.xml" />
+	  <file name="XML_PAGECOMMON_GZH" path="xml\page_comm_gzh.xml" />
+	  <file name="XML_PAGECOMMON_DYH" path="xml\page_comm_dyh.xml" />
+	  <file name="XML_PAGECOMMON_PERSONAL" path="xml\page_comm_personal.xml" />
+	  <file name="XML_PAGECOMMON_GROUP" path="xml\page_comm_group.xml" />
 	  
+	  <file name="XML_PAGECOMMON_FILEHELPER" path="xml\page_chat_filehelper.xml" />
   </LAYOUT>
   
   <values>
@@ -79,6 +92,33 @@
 		<file name="IDB_PNG_DOWNAUDIOVIDEO" path="image\chat\video_audio_down.png" />
 		<file name="IDB_PNG_NORMALLIVE" path="image\chat\live_normal.png" />
 		<file name="IDB_PNG_DOWNLIVE" path="image\chat\live_down.png" />
+
+
+		<file name="IDB_PNG_LEFTBUBBLE" path="image\chat\left_bubble.png" />
+		<file name="IDB_PNG_RIGHTBUBBLE" path="image\chat\right_bubble.png" />
+		<file name="IDB_PNG_RIGHTOTHERBUBBLE" path="image\chat\right_other_bubble.png" />
+		<file name="IDB_PNG_DEFAULTBG" path="image\chat\default_bg.png" />
+		<file name="IDB_PNG_RICHEDIT_MOREMSG" path="image\chat\richedit_more.png" />
+		<file name="IDB_PNG_RICHEDIT_MORELOADING" path="image\chat\richedit_moreloading.gif" />
+		<file name="IDB_PNG_RICHEDIT_RESEND" path="image\chat\richedit_resend.png" />
+		<file name="ID_RICH_SYSMSG_BK" path="image\chat\aio_sys_bg.png"/>
+		<file name="IDB_PNG_BGSYSMSG" path="image\chat\bg_system_msg.png" />
+		<file name="IDB_PNG_REVOKE_REEDITOR" path="image\chat\revoke_reeditor.png" />
+
+		<file name="IDB_PNG_DEFAULTLOGO_48P" path="image\chat\default_logo48.png" />
+		<file name="IDB_PNG_DEFAULTLOGO_32P" path="image\chat\default_logo32.png" />
+		<file name="IDB_PNG_MESSAGE" path="image\chat\message.png" />
+		<file name="IDB_PNG_CONTACT" path="image\chat\contact.png" />
+		<file name="IDB_PNG_COLLECT" path="image\chat\collect.png" />
+
+		<file name="IDB_PNG_SEARCH" path="image\search.png" />
+		<file name="IDB_PNG_REMINDER" path="image\chat\reminder.png" />
+		<file name="IDB_PNG_DEFAULTPERSONAL32" path="image\chat\personal.png" />
+		<file name="IDB_PNG_DEFAULTGROUP32" path="image\chat\group.png" />
+		<file name="IDB_PNG_DEFAULTFILEHELPER32" path="image\chat\filehelper.png" />
+		<file name="IDB_PNG_DEFAULTGZH32" path="image\chat\gzh.png" />
+		<file name="IDB_PNG_DEFAULTDYH32" path="image\chat\dyh.png" />
+		<file name="IDB_PNG_DEFAULTNEWS32" path="image\chat\news.png" />
 	</PNG>
   <IMG>
     <file name="traymenu_icons" path="image\traymenu_icons.png"/>

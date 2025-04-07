@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<include>
+	<caption pos="0,0,-0,-0" colorBkgnd="#CAC8C7">
+		<!--一个tileView-->
+		<tileview pos="0,0,-0,-0" name="tileview_gzh" wantTab="1" marginSize="20" colorBkgnd="#FFFFFF" sbskin="skin_scrollbar" sbWid="8" align="center" >
+			<template itemHeight="90" itemWidth="60" colorHover="rgba(100,100,100,50)" colorSelected="#FFFFFF" trackMouseEvent="1">
+				<window pos="0,0,-0,-0">
+					<!--文本头像各占一半-->
+					<window pos="0,0,@60,@45" cursor="hand">
+						<img name="item_avatar" pos="|-16,|-16" skin="skin_default_gzh32"/>
+					</window>
+					<text pos="0,[0,@60,@45"
+						  align="center"
+						  valign="center"
+						  cursor="hand"
+						  dotted="1"
+						  name="item_name"
+						  colorText="#282828"
+						  font="face:微软雅黑,size:12" />
+				</window>
+			</template>
+		</tileview>
+	</caption>
+</include>

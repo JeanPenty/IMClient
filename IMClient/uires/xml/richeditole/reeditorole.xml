@@ -1,0 +1,5 @@
+<root>
+  <window name="parent" pos="0,0,-0,-0">
+    <link name="link_reeditor" pos="[0,[0" class="cls_rich_link" font="size:12">重新编辑</link>
+  </window>
+</root>

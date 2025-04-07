@@ -146,6 +146,7 @@
       <BrowseInformation>true</BrowseInformation>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4267;4244;4018;4838;4005;4305;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -186,8 +187,15 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CDYHTileViewAdapter.cpp" />
+    <ClCompile Include="CGlobalUnits.cpp" />
+    <ClCompile Include="CGrpMbrTileViewAdapter.cpp" />
+    <ClCompile Include="CGZHTileViewAdapter.cpp" />
     <ClCompile Include="CImDlg.cpp" />
     <ClCompile Include="CLoginDlg.cpp" />
+    <ClCompile Include="CLvMessageAdapter.cpp" />
+    <ClCompile Include="CLvNewFriendAdapter.cpp" />
+    <ClCompile Include="CTvContactAdapter.cpp" />
     <ClCompile Include="extend.ctrls\ExtendCtrls.cpp" />
     <ClCompile Include="extend.ctrls\gif\SGifPlayer.cpp" />
     <ClCompile Include="extend.ctrls\gif\SSkinAPNG.cpp" />
@@ -226,8 +234,16 @@
     <ResourceCompile Include="IMClient.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="apppublic.h" />
+    <ClInclude Include="CDYHTileViewAdapter.h" />
+    <ClInclude Include="CGlobalUnits.h" />
+    <ClInclude Include="CGrpMbrTileViewAdapter.h" />
+    <ClInclude Include="CGZHTileViewAdapter.h" />
     <ClInclude Include="CImDlg.h" />
     <ClInclude Include="CLoginDlg.h" />
+    <ClInclude Include="CLvMessageAdapter.h" />
+    <ClInclude Include="CLvNewFriendAdapter.h" />
+    <ClInclude Include="CTvContactAdapter.h" />
     <ClInclude Include="extend.ctrls\ExtendCtrls.h" />
     <ClInclude Include="extend.ctrls\gif\SAniImgFrame.h" />
     <ClInclude Include="extend.ctrls\gif\SGifPlayer.h" />
@@ -290,6 +306,16 @@
     <Xml Include="uires\xml\dlg_main.xml" />
     <Xml Include="uires\xml\menu_template.xml" />
     <Xml Include="uires\xml\menu_tray.xml" />
+    <Xml Include="uires\xml\page_chat_filehelper.xml" />
+    <Xml Include="uires\xml\page_collect.xml" />
+    <Xml Include="uires\xml\page_comm_dyh.xml" />
+    <Xml Include="uires\xml\page_comm_group.xml" />
+    <Xml Include="uires\xml\page_comm_gzh.xml" />
+    <Xml Include="uires\xml\page_comm_newfriends.xml" />
+    <Xml Include="uires\xml\page_comm_personal.xml" />
+    <Xml Include="uires\xml\page_contact.xml" />
+    <Xml Include="uires\xml\page_msg.xml" />
+    <Xml Include="uires\xml\richeditole\fetchmoreole.xml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="uires\image\soui.ico" />
