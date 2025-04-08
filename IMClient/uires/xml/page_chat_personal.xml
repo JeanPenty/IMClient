@@ -20,7 +20,7 @@
 							wantReturn="1"
 							scrollSpeed="40"
 							sbSkin="skin_scrollbar"
-							inset="5,0,12,0"
+							inset="5,10,12,10"
 							font="face:微软雅黑,size:12"
 							sbWid="8"/>
 			</caption>

@@ -344,7 +344,7 @@ namespace SOUI
             ATTR_INT(L"disable-layout", _disableLayout, FALSE)
             SOUI_ATTRS_END()
 
-            BOOL    _autoWrapped;      /**< 是否一行显示不下,自动换行了*/
+        BOOL    _autoWrapped;      /**< 是否一行显示不下,自动换行了*/
         BOOL    _needUpdateLayout; /**< 标记是否需要重新设置缩进*/
         BOOL    _simulateAlign;    /**< 是否模拟右对齐。即设置左缩进,达到右对齐效果*/
         int     _breakAtTheEnd;    /**< 是否在段落后加上一个回车*/

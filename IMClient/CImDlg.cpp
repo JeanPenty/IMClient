@@ -144,7 +144,7 @@ BOOL CImDlg::OnInitDialog(HWND wndFocus, LPARAM lInitParam)
 		m_pTvContactAdapter->AddItem(item);
 	}
 
-	{//添加个人好友
+	{//添加群聊
 		TreeItemData team;
 		team.bGroup = true;
 		team.gid = 4;
@@ -163,7 +163,7 @@ BOOL CImDlg::OnInitDialog(HWND wndFocus, LPARAM lInitParam)
 		}
 	}
 
-	{//添加群聊
+	{//添加个人好友
 		TreeItemData data;
 		data.bGroup = true;
 		data.gid = 5;
@@ -180,6 +180,36 @@ BOOL CImDlg::OnInitDialog(HWND wndFocus, LPARAM lInitParam)
 			data1.strName = S_CA2W(iter->second.m_strName.c_str());
 			data1.strImg = _T("skin_default_personal32");
 			m_pTvContactAdapter->AddItem(data1);
+
+			//处理头像
+			std::string strFaceID = CGlobalUnits::GetInstance()->GenerateUUID();
+			SStringW sstrFaceID = S_CA2W(strFaceID.c_str());
+			auto iterFace = CGlobalUnits::GetInstance()->m_mapFaceIndex.find(iter->second.m_strID);
+			if (iterFace != CGlobalUnits::GetInstance()->m_mapFaceIndex.end())
+				CGlobalUnits::GetInstance()->m_mapFaceIndex.erase(iter->second.m_strID);
+			CGlobalUnits::GetInstance()->m_mapFaceIndex.insert(std::make_pair(iter->second.m_strID, sstrFaceID));
+			if (!ImageProvider::IsExist(sstrFaceID))
+			{
+				SAntialiasSkin* pSkin = new SAntialiasSkin();
+				pSkin->SetRound(TRUE);
+
+				SStringW sstrFacePath = L"";
+				bool bDefault = true;
+				if (bDefault)
+				{
+					//使用默认头像
+					sstrFacePath = L"default_res\\default_portrait.png";
+				}
+				else
+				{
+					//使用自定义头像
+					//TODO:
+				}
+				if (pSkin->LoadFromFile(sstrFacePath))
+					ImageProvider::Insert(sstrFaceID, pSkin);
+				else
+					delete pSkin;
+			}
 		}
 	}
 #pragma endregion
@@ -335,6 +365,53 @@ void CImDlg::OnMessageItemClick(int& nIndex)
 
 	CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType = pData->m_nType;
 	CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID = pData->m_strID;
+
+	SStatic* pObjName = FindChildByName2<SStatic>(L"obj_name");
+	SStringW sstrName = L"";
+	switch (pData->m_nType)
+	{
+	case 0: //filehelper
+	{
+		sstrName = L"文件传输助手";
+	}
+	break;
+	case 1: //personal
+	{
+		auto iter = CGlobalUnits::GetInstance()->m_mapPersonals.find(pData->m_strID);
+		if (iter != CGlobalUnits::GetInstance()->m_mapPersonals.end())
+		{
+			sstrName = S_CA2W(iter->second.m_strName.c_str());
+		}
+	}
+	break;
+	case 2: //group
+	{
+		auto iter = CGlobalUnits::GetInstance()->m_mapGroups.find(pData->m_strID);
+		if (iter != CGlobalUnits::GetInstance()->m_mapGroups.end())
+		{
+			sstrName = S_CA2W(iter->second.m_strGroupName.c_str());
+		}
+	}
+	break;
+	case 3: //dyh
+	{
+		sstrName = L"订阅号";
+	}
+	break;
+	case 4: //新闻
+	{
+		sstrName = L"新闻";
+	}
+	break;
+	case 5:
+	{
+		//
+	}
+	break;
+	default:
+		break;
+	}
+	pObjName->SetWindowTextW(sstrName);
 }
 
 void CImDlg::OnMessageItemRClick(int& nIndex)
@@ -601,6 +678,9 @@ void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 		SASSERT(pRecvRichedit);
 		SASSERT(pSendRichedit);
 
+		pSendRichedit->SetFocus();
+		DWORD dwEvtMask = pSendRichedit->SSendMessage(EM_GETEVENTMASK);
+		pSendRichedit->SSendMessage(EM_SETEVENTMASK, 0, dwEvtMask | ENM_CHANGE);
 		SUBSCRIBE(pRecvRichedit, EVT_RE_SCROLLBAR, CImDlg::OnRecvRichEditScrollEvent);
 		SUBSCRIBE(pRecvRichedit, EVT_CTXMENU, CImDlg::OnRecvRichEditScrollEvent);
 		SUBSCRIBE(pRecvRichedit, EVT_RE_OBJ, CImDlg::OnRecvRichEditObjEvent);
@@ -730,7 +810,6 @@ void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
 
 void CImDlg::OnBnClickSend()
 {
-
 // 	CHARRANGE chr = { 0, -1 };
 // 	SStringW strContent = pSendRichedit->GetSelectedContent(&chr);
 // 	pugi::xml_document doc;
@@ -761,20 +840,33 @@ void CImDlg::OnBnClickSend()
 
 	switch (CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType)
 	{
-	case 0:
+	case 0: //filehelper
 	{
 		CGlobalUnits::GetInstance()->m_strFileHelperLasttalkContent = S_CW2A(sstrTmp);
 		CGlobalUnits::GetInstance()->m_ttFileHelperLasttalkTime = tt;
 	}
 	break;
-	case 1:
+	case 1://personal
 	{
-		//
+		CGlobalUnits::GetInstance()->m_mapPersonalLasttalkContent[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = S_CW2A(sstrTmp);
+		CGlobalUnits::GetInstance()->m_mapPersonalLasttalkTime[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = tt;
+	}
+	break;
+	case 2://group
+	{
+		CGlobalUnits::GetInstance()->m_mapGroupLasttalkContent[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = S_CW2A(sstrTmp);
+		CGlobalUnits::GetInstance()->m_mapGroupLasttalkTime[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = tt;
 	}
 	break;
 	default:
 		break;
 	}
+
+	//定义一个空的段落
+	LPCWSTR pEmpty;
+	pEmpty = L"<para id=\"empty_para\">"
+		L""
+		L"</para>";
 
 	//测试放置消息发送时间
 	SStringT sstrTime;
@@ -785,33 +877,46 @@ void CImDlg::OnBnClickSend()
 		L"<para margin=\"100,15,100,0\" align=\"center\" break=\"1\" >"
 		L"%s"
 		L"</para>"
-		L"</RichEditContent>", sstrTime);
+		L"%s" //时间之后放置个空段落
+		L"</RichEditContent>", sstrTime, pEmpty);
 	pRecvRichedit->InsertContent(content, RECONTENT_LAST);
 
 	//测试放置消息
-	SStringW sstrTemp = sstrTmp;
-	SStringW sstrText, sstrRevoke;
-	sstrText.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#000000\"><![CDATA[%s]]></text>", sstrTemp);
-	sstrRevoke.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#333333\"><![CDATA[%s]]></text>", sstrTemp);
+	SStringW sstrFormatText, sstrRevoke;
+	sstrFormatText.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#000000\"><![CDATA[%s]]></text>", sstrTmp);
+	sstrRevoke.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#333333\"><![CDATA[%s]]></text>", sstrTmp);
 
-	LPCWSTR pEmpty;
-	pEmpty = L"<para id=\"msgbody\" margin=\"0,0,0,0\" break=\"1\" simulate-align=\"1\">"
-		L""
-		L"</para>";
+	SStringW sstrID = S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str());
+	SStringW sstrFaceID;
+	auto iterFace = CGlobalUnits::GetInstance()->m_mapFaceIndex.find(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID);
+	if (iterFace != CGlobalUnits::GetInstance()->m_mapFaceIndex.end())
+		sstrFaceID = iterFace->second.c_str();
+
+	//处理头像
+	SStringW sstrAvatar;
+	sstrAvatar.Format(L"<bkele id=\"%s\" skin=\"%s\" right-pos=\"-50,]-8,@32,@32\" cursor=\"hand\" interactive=\"1\"/>", sstrID, sstrFaceID);
+
+	//处理文本消息
+	SStringW sstrTextPara;
+	sstrTextPara.Format(
+		L"<para id=\"msgbody\" margin=\"65,0,45,0\" break=\"1\" simulate-align=\"1\">"
+		L"%s"
+		L"</para>", sstrFormatText);
+
+	//处理气泡
+	SStringW sstrBubble = L"<bkele data=\"bubble\" right-skin=\"skin_right_bubble\" right-pos=\"{-10,{-9,-55,[10\" />";
 
 	SStringW sstrContent;
 	sstrContent.Format(
-		L"<RichEditContent msgtype=\"text\" talk_type=\"ac_chatroom\" type=\"ContentRight\" align=\"right\" auto-layout=\"1\">"
-		L"<para break=\"1\" align=\"center\" />"
-		L"<bkele data=\"avatar\" right-pos=\"-50,]-10,@40,@40\" cursor=\"hand\" interactive=\"1\"/>"
-		L"<para id=\"msgbody\" margin=\"65,0,45,0\" break=\"1\" simulate-align=\"1\">"
-		L"%s"
-		L"</para>"
-		L"<bkele data=\"bubble\" right-skin=\"skin_right_bubble\" right-pos=\"{-10,{-9,-55,[10\" />"
+		L"<RichEditContent msgtype=\"text\" talk_type=\"personal\" type=\"ContentRight\" align=\"right\" auto-layout=\"1\">"
 		L"%s"
 		L"%s"
-		L"</RichEditContent>", sstrText, pEmpty, pEmpty);
+		L"%s"
+		L"%s" //放置两个空段落
+		L"%s"
+		L"</RichEditContent>", sstrAvatar, sstrTextPara, sstrBubble, pEmpty, pEmpty);
 	pRecvRichedit->InsertContent(sstrContent, RECONTENT_LAST);
+	pRecvRichedit->ScrollToBottom();
 
 	pSendRichedit->Clear();
 

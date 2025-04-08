@@ -184,6 +184,58 @@ public:
 			else
 				strName = pItemData->m_strID;
 			pName->SetWindowText(S_CA2W(strName.c_str()));
+
+			//设置消息内容
+			SStringW sstrContent = L"";
+			auto iterContent = CGlobalUnits::GetInstance()->m_mapPersonalLasttalkContent.find(pItemData->m_strID);
+			if (iterContent != CGlobalUnits::GetInstance()->m_mapPersonalLasttalkContent.end())
+				sstrContent = S_CA2W(iterContent->second.c_str());
+			pContent->SetWindowText(sstrContent);
+
+			//设置时间
+			SStringW sstrTime = L"";
+			auto iterTime = CGlobalUnits::GetInstance()->m_mapPersonalLasttalkTime.find(pItemData->m_strID);
+			if (iterTime != CGlobalUnits::GetInstance()->m_mapPersonalLasttalkTime.end())
+			{
+				SYSTEMTIME lpsystime;
+				GetLocalTime(&lpsystime);
+				time_t tt = time(NULL);
+				tm* tCurr = localtime(&tt);
+				tm* t = localtime(&iterTime->second);
+				if (tCurr->tm_year == t->tm_year && tCurr->tm_mon == t->tm_mon && tCurr->tm_mday == t->tm_mday)
+				{
+					sstrTime.Format(L"%02d:%02d", t->tm_hour, t->tm_min);
+				}
+				else if (tCurr->tm_year == t->tm_year && tCurr->tm_mon == t->tm_mon && tCurr->tm_mday - 1 == t->tm_mday)
+					sstrTime = L"昨天";
+				else
+					sstrTime.Format(L"%02d月%02d日", t->tm_mon + 1, t->tm_mday);
+			}
+			pTime->SetWindowText(sstrTime);
+
+			//设置消息提醒
+			auto iterDisturb = CGlobalUnits::GetInstance()->m_mapPersonalDisturb.find(pItemData->m_strID);
+			if (iterDisturb != CGlobalUnits::GetInstance()->m_mapPersonalDisturb.end())
+			{
+				if (!iterDisturb->second)
+					pReminder->SetAttribute(L"show", L"1");
+				else
+					pReminder->SetAttribute(L"show", L"0");
+			}
+			else
+				pReminder->SetAttribute(L"show", L"1");
+
+			//设置消息未读相关
+			auto iterRead = CGlobalUnits::GetInstance()->m_mapPersonalRead.find(pItemData->m_strID);
+			if (iterRead != CGlobalUnits::GetInstance()->m_mapPersonalRead.end())
+			{
+				if (!iterRead->second)
+					pRead->SetAttribute(L"show", L"1");
+				else
+					pRead->SetAttribute(L"show", L"0");
+			}
+			else
+				pRead->SetAttribute(L"show", L"1");
 		}
 		break;
 		case 2:
@@ -195,6 +247,73 @@ public:
 			else
 				strName = pItemData->m_strID;
 			pName->SetWindowText(S_CA2W(strName.c_str()));
+
+			//设置消息内容
+			SStringW sstrContent = L"";
+			auto iterContent = CGlobalUnits::GetInstance()->m_mapGroupLasttalkContent.find(pItemData->m_strID);
+			if (iterContent != CGlobalUnits::GetInstance()->m_mapGroupLasttalkContent.end())
+				sstrContent = S_CA2W(iterContent->second.c_str());
+			pContent->SetWindowText(sstrContent);
+
+			//设置时间
+			SStringW sstrTime = L"";
+			auto iterTime = CGlobalUnits::GetInstance()->m_mapGroupLasttalkTime.find(pItemData->m_strID);
+			if (iterTime != CGlobalUnits::GetInstance()->m_mapGroupLasttalkTime.end())
+			{
+				SYSTEMTIME lpsystime;
+				GetLocalTime(&lpsystime);
+				time_t tt = time(NULL);
+				tm* tCurr = localtime(&tt);
+				tm* t = localtime(&iterTime->second);
+				if (tCurr->tm_year == t->tm_year && tCurr->tm_mon == t->tm_mon && tCurr->tm_mday == t->tm_mday)
+				{
+					sstrTime.Format(L"%02d:%02d", t->tm_hour, t->tm_min);
+				}
+				else if (tCurr->tm_year == t->tm_year && tCurr->tm_mon == t->tm_mon && tCurr->tm_mday - 1 == t->tm_mday)
+					sstrTime = L"昨天";
+				else
+					sstrTime.Format(L"%02d月%02d日", t->tm_mon + 1, t->tm_mday);
+			}
+			pTime->SetWindowText(sstrTime);
+
+			//设置消息提醒
+			auto iterDisturb = CGlobalUnits::GetInstance()->m_mapGroupDisturb.find(pItemData->m_strID);
+			if (iterDisturb != CGlobalUnits::GetInstance()->m_mapGroupDisturb.end())
+			{
+				if (!iterDisturb->second)
+					pReminder->SetAttribute(L"show", L"1");
+				else
+					pReminder->SetAttribute(L"show", L"0");
+			}
+			else
+				pReminder->SetAttribute(L"show", L"1");
+
+			//设置消息未读相关
+			auto iterRead = CGlobalUnits::GetInstance()->m_mapGroupRead.find(pItemData->m_strID);
+			if (iterRead != CGlobalUnits::GetInstance()->m_mapGroupRead.end())
+			{
+				if (!iterRead->second)
+					pRead->SetAttribute(L"show", L"1");
+				else
+					pRead->SetAttribute(L"show", L"0");
+			}
+			else
+				pRead->SetAttribute(L"show", L"1");
+		}
+		break;
+		case 3:
+		{
+			//订阅号
+		}
+		break;
+		case 4:
+		{
+			//新闻
+		}
+		break;
+		case 5:
+		{
+			//公众号
 		}
 		break;
 		default:

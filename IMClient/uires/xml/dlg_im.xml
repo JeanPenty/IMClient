@@ -43,6 +43,7 @@
 					<!--右侧-->
 					<caption pos="0,0,-300,@60" colorBkgnd="#FFFFFF">
 						<!--用来放置聊天对象名-->
+						<text name="obj_name" pos="10,0,-0,-0" dotted="1" font="face:微软雅黑,size:18" algin="left" valign="center">名称</text>
 					</caption>
 					<caption pos="[0,{0,-0,@60" colorBkgnd="#FFFFFF">
 						<!--用来放置关闭、最大化、最小化、以及聊天操作等的按钮-->
