@@ -45,7 +45,6 @@
 					<text name="item_content"
 						  pos="0,0,-0,-0"
 						  align="left"
-						  valign="top"
 						  dotted="1"
 						  colorText="#999999"
 						  font="face:微软雅黑,size:12" />

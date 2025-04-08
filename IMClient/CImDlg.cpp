@@ -596,6 +596,88 @@ void CImDlg::OnMessageItemRClick(int& nIndex)
 	case 2:
 	{
 		//多人聊天
+		auto iterTopmost = CGlobalUnits::GetInstance()->m_mapGroupTopmost.find(pData->m_strID);
+		if (iterTopmost == CGlobalUnits::GetInstance()->m_mapGroupTopmost.end())
+		{
+			menu.AddMenu(_T("置顶"), 1, TRUE, FALSE, sstrFont);
+			CGlobalUnits::GetInstance()->m_mapGroupTopmost[pData->m_strID] = false;
+		}
+		else
+		{
+			if (iterTopmost->second)
+				menu.AddMenu(_T("取消置顶"), 1, TRUE, FALSE, sstrFont);
+			else
+				menu.AddMenu(_T("置顶"), 1, TRUE, FALSE, sstrFont);
+		}
+
+		auto iterRead = CGlobalUnits::GetInstance()->m_mapGroupRead.find(pData->m_strID);
+		if (iterRead == CGlobalUnits::GetInstance()->m_mapGroupRead.end())
+		{
+			menu.AddMenu(_T("标为已读"), 2, TRUE, FALSE, sstrFont);
+			CGlobalUnits::GetInstance()->m_mapGroupRead[pData->m_strID] = false;
+		}
+		else
+		{
+			if (iterRead->second)
+				menu.AddMenu(_T("标为未读"), 2, TRUE, FALSE, sstrFont);
+			else
+				menu.AddMenu(_T("标为已读"), 2, TRUE, FALSE, sstrFont);
+		}
+
+		auto iterDisturb = CGlobalUnits::GetInstance()->m_mapGroupDisturb.find(pData->m_strID);
+		if (iterDisturb == CGlobalUnits::GetInstance()->m_mapGroupDisturb.end())
+		{
+			menu.AddMenu(_T("开启消息提醒"), 3, TRUE, FALSE, sstrFont);
+			CGlobalUnits::GetInstance()->m_mapGroupDisturb[pData->m_strID] = false;
+		}
+		else
+		{
+			if (iterDisturb->second)
+				menu.AddMenu(_T("消息免打扰"), 3, TRUE, FALSE, sstrFont);
+			else
+				menu.AddMenu(_T("开启消息提醒"), 3, TRUE, FALSE, sstrFont);
+		}
+
+		menu.AddMenu(_T("修改群聊名称"), 4, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("设置备注"), 5, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("在独立窗口中打开"), 6, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("保存到通讯录"), 7, TRUE, FALSE, sstrFont);   //需要判断是否已经保存到通讯录了
+
+		menu.AddSeperator();
+		menu.AddMenu(_T("不显示聊天"), 8, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("删除聊天"), 9, TRUE, FALSE, sstrFont);
+
+		int ret = 0;
+		POINT pt;
+		::GetCursorPos(&pt);
+
+		ret = menu.ShowMenu(TPM_RETURNCMD, pt.x, pt.y, m_hWnd);
+		switch (ret)
+		{
+		case 1:
+		{
+			CGlobalUnits::GetInstance()->m_mapGroupTopmost[pData->m_strID] = !CGlobalUnits::GetInstance()->m_mapGroupTopmost[pData->m_strID];
+			//需要将lvMessage中的消息项移动到置顶聊天之后
+			//TODO:
+		}
+		break;
+		case 2:
+		{
+			CGlobalUnits::GetInstance()->m_mapGroupRead[pData->m_strID] = !CGlobalUnits::GetInstance()->m_mapGroupRead[pData->m_strID];
+			//需要更新lvMessage中的消息项使其在头像右上角的红点已标记该消息是已读或者未读
+			//TODO:
+		}
+		break;
+		case 3:
+		{
+			CGlobalUnits::GetInstance()->m_mapGroupDisturb[pData->m_strID] = !CGlobalUnits::GetInstance()->m_mapGroupDisturb[pData->m_strID];
+			//需要更新lvMessage中的消息项中关于消息提醒状态
+			//TODO:
+		}
+		break;
+		default:
+			break;
+		}
 	}
 	break;
 	case 3:
@@ -864,7 +946,7 @@ void CImDlg::OnBnClickSend()
 
 	//定义一个空的段落
 	LPCWSTR pEmpty;
-	pEmpty = L"<para id=\"empty_para\">"
+	pEmpty = L"<para id=\"msgbody\" margin=\"0,0,0,0\" break=\"1\" simulate-align=\"1\">"
 		L""
 		L"</para>";
 
@@ -877,8 +959,7 @@ void CImDlg::OnBnClickSend()
 		L"<para margin=\"100,15,100,0\" align=\"center\" break=\"1\" >"
 		L"%s"
 		L"</para>"
-		L"%s" //时间之后放置个空段落
-		L"</RichEditContent>", sstrTime, pEmpty);
+		L"</RichEditContent>", sstrTime);
 	pRecvRichedit->InsertContent(content, RECONTENT_LAST);
 
 	//测试放置消息
@@ -908,13 +989,13 @@ void CImDlg::OnBnClickSend()
 
 	SStringW sstrContent;
 	sstrContent.Format(
-		L"<RichEditContent msgtype=\"text\" talk_type=\"personal\" type=\"ContentRight\" align=\"right\" auto-layout=\"1\">"
+		L"<RichEditContent msgtype=\"text\" talk_type=\"personal\" type=\"ContentRight\" align=\"center\" auto-layout=\"1\">"
+		L"<para break=\"1\" align=\"left\" />"
 		L"%s"
 		L"%s"
 		L"%s"
 		L"%s" //放置两个空段落
-		L"%s"
-		L"</RichEditContent>", sstrAvatar, sstrTextPara, sstrBubble, pEmpty, pEmpty);
+		L"</RichEditContent>", sstrAvatar, sstrTextPara, sstrBubble, pEmpty);
 	pRecvRichedit->InsertContent(sstrContent, RECONTENT_LAST);
 	pRecvRichedit->ScrollToBottom();
 
