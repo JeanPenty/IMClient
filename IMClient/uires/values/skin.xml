@@ -101,4 +101,7 @@
 	<imgframe name="skin_default_gzh32" src="PNG:IDB_PNG_DEFAULTGZH32" />
 	<imgframe name="skin_default_dyh32" src="PNG:IDB_PNG_DEFAULTDYH32" />
 	<imgframe name="skin_default_news32" src="PNG:IDB_PNG_DEFAULTNEWS32" />
+	
+	<imgframe name="skin_readdot" src="PNG:IDB_PNG_READDOT" />
+	
 </skin>

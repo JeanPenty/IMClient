@@ -95,7 +95,6 @@
 		<file name="IDB_PNG_NORMALLIVE" path="image\chat\live_normal.png" />
 		<file name="IDB_PNG_DOWNLIVE" path="image\chat\live_down.png" />
 
-
 		<file name="IDB_PNG_LEFTBUBBLE" path="image\chat\left_bubble.png" />
 		<file name="IDB_PNG_RIGHTBUBBLE" path="image\chat\right_bubble.png" />
 		<file name="IDB_PNG_RIGHTOTHERBUBBLE" path="image\chat\right_other_bubble.png" />
@@ -121,6 +120,8 @@
 		<file name="IDB_PNG_DEFAULTGZH32" path="image\chat\gzh.png" />
 		<file name="IDB_PNG_DEFAULTDYH32" path="image\chat\dyh.png" />
 		<file name="IDB_PNG_DEFAULTNEWS32" path="image\chat\news.png" />
+
+		<file name="IDB_PNG_READDOT" path="image\chat\readdot.png" />
 	</PNG>
   <IMG>
     <file name="traymenu_icons" path="image\traymenu_icons.png"/>
@@ -136,5 +137,6 @@
     <file name="menu_tray" path="xml\menu_tray.xml"/>
 	<file name="menu_template" path="xml\menu_template.xml" />
 	  <file name="menu_contactlist" path="xml\menu\menu_contactlist.xml" />
+	  <file name="menu_messagelist" path="xml\menu\menu_messagelist.xml" />
   </SMENU>
 </resource>

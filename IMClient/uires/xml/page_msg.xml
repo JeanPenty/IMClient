@@ -22,12 +22,13 @@
 				  sbWid="8"
 				  sbSkin="skin_scrollbar">
 			<template itemHeight="64"
-					  colorHover="#DAD8D8"
-					  colorSelected="#CAC8C7"
+					  colorHover="#D1D1D2"
+					  colorSelected="#C8C9CB"
 					  trackMouseEvent="1">
 				<caption pos="5,12,@40,@40">
 					<!--avatar-->
 					<img name="item_avatar" pos="|-16,|-16"  skin="skin_default_personal32"/>
+					<img name="item_readdot" pos="[-10,{-10,@10,@10" skin="skin_readdot"/>
 				</caption>
 				<caption pos="[5,0,-60,@32">
 					<!--name-->

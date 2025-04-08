@@ -3,7 +3,14 @@
 
 CGlobalUnits::CGlobalUnits(void)
 {
+	m_bFileHelperTopmost = false;
+	m_bDYHTopmost = false;
 
+	m_bFileHelperRead = false;
+	m_bDYHRead = false;
+
+	m_bFileHelperDisturb = false;
+	m_bDYHDisturb = false;
 }
 
 CGlobalUnits::~CGlobalUnits(void)

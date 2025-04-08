@@ -382,6 +382,9 @@
     <Xml Include="uires\xml\menu\menu_contactlist.xml">
       <Filter>SoUI Resource\企业通讯\菜单</Filter>
     </Xml>
+    <Xml Include="uires\xml\menu\menu_messagelist.xml">
+      <Filter>SoUI Resource\企业通讯\菜单</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Image Include="uires\image\soui.ico">

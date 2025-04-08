@@ -286,6 +286,12 @@ void CImDlg::OnBnClickMessage()
 	pBtnCollect->SetCheck(FALSE);
 
 	pMainOptTab->SetCurSel(0);
+
+	SStringW sstrID = S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str());
+	STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+	int nPage = pTabChatArea->GetPageIndex(sstrID, TRUE);
+	pTabChatArea->SetCurSel(nPage);
+	m_pLvMessageAdapter->SetCurSel(sstrID);
 }
 
 void CImDlg::OnBnClickContact()
@@ -334,7 +340,207 @@ void CImDlg::OnMessageItemClick(int& nIndex)
 void CImDlg::OnMessageItemRClick(int& nIndex)
 {
 	//显示右键菜单
-	//TODO:
+	//群、个人、公众号、订阅号、新闻的菜单各不相同，需要分别处理
+	CLvMessageAdapter::ItemData* pData = m_pLvMessageAdapter->GetItemData(nIndex);
+
+	SStringW sstrFont = L"face:微软雅黑,size:12";
+	MenuWrapper menu(L"menu_messagelist", L"SMENU");
+	switch (pData->m_nType)
+	{
+	case 0:
+	{
+		//文件传输助手
+		if (CGlobalUnits::GetInstance()->m_bFileHelperTopmost)
+			menu.AddMenu(_T("取消置顶"), 1, TRUE, FALSE, sstrFont);
+		else
+			menu.AddMenu(_T("置顶"), 1, TRUE, FALSE, sstrFont);
+		
+		if (CGlobalUnits::GetInstance()->m_bFileHelperRead)
+			menu.AddMenu(_T("标为未读"), 2, TRUE, FALSE, sstrFont);
+		else
+			menu.AddMenu(_T("标为已读"), 2, TRUE, FALSE, sstrFont);
+		
+		if (CGlobalUnits::GetInstance()->m_bFileHelperDisturb)
+			menu.AddMenu(_T("消息免打扰"), 3, TRUE, FALSE, sstrFont);
+		else
+			menu.AddMenu(_T("开启消息提醒"), 3, TRUE, FALSE, sstrFont);
+
+		menu.AddMenu(_T("在独立窗口中打开"), 4, TRUE, FALSE, sstrFont);
+		menu.AddSeperator();
+		menu.AddMenu(_T("不显示聊天"), 5, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("删除聊天"), 6, TRUE, FALSE, sstrFont);
+
+		int ret = 0;
+		POINT pt;
+		::GetCursorPos(&pt);
+
+		ret = menu.ShowMenu(TPM_RETURNCMD, pt.x, pt.y, m_hWnd);
+		switch (ret)
+		{
+		case 1:
+		{
+			CGlobalUnits::GetInstance()->m_bFileHelperTopmost = !CGlobalUnits::GetInstance()->m_bFileHelperTopmost;
+			//需要将lvMessage中的消息项移动到置顶聊天之后
+			//TODO:
+		}
+		break;
+		case 2:
+		{
+			CGlobalUnits::GetInstance()->m_bFileHelperRead = !CGlobalUnits::GetInstance()->m_bFileHelperRead;
+			//需要更新lvMessage中的消息项使其在头像右上角的红点已标记该消息是已读或者未读
+			//TODO:
+		}
+		break;
+		case 3:
+		{
+			CGlobalUnits::GetInstance()->m_bFileHelperDisturb = !CGlobalUnits::GetInstance()->m_bFileHelperDisturb;
+			//需要更新lvMessage中的消息项中关于消息提醒状态
+			//TODO:
+		}
+		break;
+		case 4:
+		{
+			//重新创建个窗口用来展示聊天信息，从整体的展示中删除有关于这个聊天相关的数据。
+		}
+		break;
+		case 5:
+		{
+			//不显示聊天
+		}
+		break;
+		case 6:
+		{
+			//删除聊天
+		}
+		break;
+		default:
+			break;
+		}
+	}
+	break;
+	case 1:
+	{
+		//个人聊天
+		auto iterTopmost = CGlobalUnits::GetInstance()->m_mapPersonalTopmost.find(pData->m_strID);
+		if (iterTopmost == CGlobalUnits::GetInstance()->m_mapPersonalTopmost.end())
+		{
+			menu.AddMenu(_T("置顶"), 1, TRUE, FALSE, sstrFont);
+			CGlobalUnits::GetInstance()->m_mapPersonalTopmost[pData->m_strID] = false;
+		}
+		else
+		{
+			if (iterTopmost->second)
+				menu.AddMenu(_T("取消置顶"), 1, TRUE, FALSE, sstrFont);
+			else
+				menu.AddMenu(_T("置顶"), 1, TRUE, FALSE, sstrFont);
+		}
+
+		auto iterRead = CGlobalUnits::GetInstance()->m_mapPersonalRead.find(pData->m_strID);
+		if (iterRead == CGlobalUnits::GetInstance()->m_mapPersonalRead.end())
+		{
+			menu.AddMenu(_T("标为已读"), 2, TRUE, FALSE, sstrFont);
+			CGlobalUnits::GetInstance()->m_mapPersonalRead[pData->m_strID] = false;
+		}
+		else
+		{
+			if (iterRead->second)
+				menu.AddMenu(_T("标为未读"), 2, TRUE, FALSE, sstrFont);
+			else
+				menu.AddMenu(_T("标为已读"), 2, TRUE, FALSE, sstrFont);
+		}
+
+		auto iterDisturb = CGlobalUnits::GetInstance()->m_mapPersonalDisturb.find(pData->m_strID);
+		if (iterDisturb == CGlobalUnits::GetInstance()->m_mapPersonalDisturb.end())
+		{
+			menu.AddMenu(_T("开启消息提醒"), 3, TRUE, FALSE, sstrFont);
+			CGlobalUnits::GetInstance()->m_mapPersonalDisturb[pData->m_strID] = false;
+		}
+		else
+		{
+			if (iterDisturb->second)
+				menu.AddMenu(_T("消息免打扰"), 3, TRUE, FALSE, sstrFont);
+			else
+				menu.AddMenu(_T("开启消息提醒"), 3, TRUE, FALSE, sstrFont);
+		}
+
+		menu.AddMenu(_T("在独立窗口中打开"), 4, TRUE, FALSE, sstrFont);
+		menu.AddSeperator();
+		menu.AddMenu(_T("不显示聊天"), 5, TRUE, FALSE, sstrFont);
+		menu.AddMenu(_T("删除聊天"), 6, TRUE, FALSE, sstrFont);
+
+		int ret = 0;
+		POINT pt;
+		::GetCursorPos(&pt);
+
+		ret = menu.ShowMenu(TPM_RETURNCMD, pt.x, pt.y, m_hWnd);
+		switch (ret)
+		{
+		case 1:
+		{
+			CGlobalUnits::GetInstance()->m_mapPersonalTopmost[pData->m_strID] = !CGlobalUnits::GetInstance()->m_mapPersonalTopmost[pData->m_strID];
+			//需要将lvMessage中的消息项移动到置顶聊天之后
+			//TODO:
+		}
+		break;
+		case 2:
+		{
+			CGlobalUnits::GetInstance()->m_mapPersonalRead[pData->m_strID] = !CGlobalUnits::GetInstance()->m_mapPersonalRead[pData->m_strID];
+			//需要更新lvMessage中的消息项使其在头像右上角的红点已标记该消息是已读或者未读
+			//TODO:
+		}
+		break;
+		case 3:
+		{
+			CGlobalUnits::GetInstance()->m_mapPersonalDisturb[pData->m_strID] = !CGlobalUnits::GetInstance()->m_mapPersonalDisturb[pData->m_strID];
+			//需要更新lvMessage中的消息项中关于消息提醒状态
+			//TODO:
+		}
+		break;
+		case 4:
+		{
+			//重新创建个窗口用来展示聊天信息，从整体的展示中删除有关于这个聊天相关的数据。
+		}
+		break;
+		case 5:
+		{
+			//不显示聊天
+		}
+		break;
+		case 6:
+		{
+			//删除聊天
+		}
+		break;
+		default:
+			break;
+		}
+	}
+	break;
+	case 2:
+	{
+		//多人聊天
+	}
+	break;
+	case 3:
+	{
+		//订阅号
+	}
+	break;
+	case 4:
+	{
+		//新闻
+	}
+	break;
+	case 5:
+	{
+		//公众号
+	}
+	break;
+	default:
+		break;
+	}
+
+	m_pLvMessageAdapter->Update();
 }
 
 void CImDlg::ContactTVItemClick(int nGID, const std::string& strID)
@@ -384,11 +590,11 @@ void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 
 		m_pLvMessageAdapter->AddItem(2, sstrID);
 
-		STabCtrl* pTabCharArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+		STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
 		SStringW sstrPage;
 		sstrPage.Format(L"<page title='%s'><include src='layout:XML_PAGECOMMON_CHATGROUP'/></page>", sstrID);
-		pTabCharArea->InsertItem(sstrPage);
-		SWindow* pPage = pTabCharArea->GetPage(sstrID, TRUE);
+		pTabChatArea->InsertItem(sstrPage);
+		SWindow* pPage = pTabChatArea->GetPage(sstrID, TRUE);
 		SASSERT(pPage);
 		SImRichEdit* pRecvRichedit = pPage->FindChildByName2<SImRichEdit>(L"recv_richedit");
 		SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
@@ -406,8 +612,8 @@ void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 
 		AddFetchMoreBlock(pRecvRichedit);
 
-		int nPage = pTabCharArea->GetPageIndex(sstrID, TRUE);
-		pTabCharArea->SetCurSel(nPage);
+		int nPage = pTabChatArea->GetPageIndex(sstrID, TRUE);
+		pTabChatArea->SetCurSel(nPage);
 		m_pLvMessageAdapter->SetCurSel(sstrID);
 
 		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType = 2;
@@ -428,11 +634,11 @@ void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 
 		m_pLvMessageAdapter->AddItem(1, sstrID);
 
-		STabCtrl* pTabCharArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+		STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
 		SStringW sstrPage;
 		sstrPage.Format(L"<page title='%s'><include src='layout:XML_PAGECOMMON_CHATPERSONAL'/></page>", sstrID);
-		pTabCharArea->InsertItem(sstrPage);
-		SWindow* pPage = pTabCharArea->GetPage(sstrID, TRUE);
+		pTabChatArea->InsertItem(sstrPage);
+		SWindow* pPage = pTabChatArea->GetPage(sstrID, TRUE);
 		SASSERT(pPage);
 		SImRichEdit* pRecvRichedit = pPage->FindChildByName2<SImRichEdit>(L"recv_richedit");
 		SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
@@ -450,8 +656,8 @@ void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 
 		AddFetchMoreBlock(pRecvRichedit);
 
-		int nPage = pTabCharArea->GetPageIndex(sstrID, TRUE);
-		pTabCharArea->SetCurSel(nPage);
+		int nPage = pTabChatArea->GetPageIndex(sstrID, TRUE);
+		pTabChatArea->SetCurSel(nPage);
 		m_pLvMessageAdapter->SetCurSel(sstrID);
 
 		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType = 1;
@@ -465,9 +671,9 @@ void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
 	SStringW sstrID = S_CA2W(strID.c_str());
 
 	SStringW sstrFont = L"face:微软雅黑,size:12";
+	MenuWrapper menu(L"menu_contactlist", L"SMENU");
 	if (4 ==  nGID)
 	{
-		MenuWrapper menu(L"menu_contactlist", L"SMENU");
 		menu.AddMenu(_T("发送消息"), 1, TRUE, FALSE, sstrFont);
 		menu.AddMenu(_T("设置备注"), 2, TRUE, FALSE, sstrFont);
 		menu.AddMenu(_T("从通讯录中删除"), 3, TRUE, FALSE, sstrFont);
@@ -495,7 +701,6 @@ void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
 	}
 	else if (5 == nGID)
 	{
-		MenuWrapper menu(L"menu_contactlist", L"SMENU");
 		menu.AddMenu(_T("发送消息"), 1, TRUE, FALSE, sstrFont);
 		menu.AddMenu(_T("设为星标朋友"), 2, TRUE, FALSE, sstrFont);
 		menu.AddMenu(_T("发送名片"), 3, TRUE, FALSE, sstrFont);
@@ -540,12 +745,10 @@ void CImDlg::OnBnClickSend()
 
 	STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
 	SWindow* pPage = pTabChatArea->GetPage(S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str()));
-
 	SImRichEdit* pRecvRichedit = pPage->FindChildByName2<SImRichEdit>(L"recv_richedit");
 	SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
 	SStringW sstrTmp = pSendRichedit->GetWindowTextW();
 
-	//测试放置消息发送时间
 	SYSTEMTIME lpsystime;
 	GetLocalTime(&lpsystime);
 	time_t tt = time(NULL);
@@ -555,6 +758,25 @@ void CImDlg::OnBnClickSend()
 		sstrTempTime.Format(L"%02d月%02d日  下午%02d:%02d", t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min);
 	else
 		sstrTempTime.Format(L"%02d月%02d日  上午%02d:%02d", t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min);
+
+	switch (CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType)
+	{
+	case 0:
+	{
+		CGlobalUnits::GetInstance()->m_strFileHelperLasttalkContent = S_CW2A(sstrTmp);
+		CGlobalUnits::GetInstance()->m_ttFileHelperLasttalkTime = tt;
+	}
+	break;
+	case 1:
+	{
+		//
+	}
+	break;
+	default:
+		break;
+	}
+
+	//测试放置消息发送时间
 	SStringT sstrTime;
 	sstrTime.Format(L"<text font-size=\"8\" color=\"#808080\">%s</text>", sstrTempTime);
 	SStringW content;
@@ -594,7 +816,7 @@ void CImDlg::OnBnClickSend()
 	pSendRichedit->Clear();
 
 	//消息发送之后需要更新最近会话列表中的消息内容、消息时间等信息
-	//TODO:
+	m_pLvMessageAdapter->Update();
 }
 
 bool CImDlg::OnSendRichEditAcceptData(EventArgs* pEvt)

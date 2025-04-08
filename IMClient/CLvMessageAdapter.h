@@ -125,13 +125,56 @@ public:
 
 		//name
 		SStatic* pName = pItem->FindChildByName2<SStatic>(L"item_name");
+		SStatic* pContent = pItem->FindChildByName2<SStatic>(L"item_content");
+		SStatic* pTime = pItem->FindChildByName2<SStatic>(L"item_time");
+		SImageWnd* pReminder = pItem->FindChildByName2<SImageWnd>(L"item_reminder");
+		SImageWnd* pRead = pItem->FindChildByName2<SImageWnd>(L"item_readdot");
 		SASSERT(pName);
-		SStringW sstrName;
+		SASSERT(pContent);
+		SASSERT(pTime);
+		SASSERT(pReminder);
+		SASSERT(pRead);
+
 		switch (pItemData->m_nType)
 		{
 		case 0:
-			sstrName = L"文件传输助手";
-			break;
+		{
+			pName->SetWindowText(L"文件传输助手");
+
+			//设置消息内容
+			pContent->SetWindowText(S_CA2W(CGlobalUnits::GetInstance()->m_strFileHelperLasttalkContent.c_str()));
+
+			//设置时间
+			SYSTEMTIME lpsystime;
+			GetLocalTime(&lpsystime);
+			time_t tt = time(NULL);
+			tm* tCurr = localtime(&tt);
+			tm* t = localtime(&CGlobalUnits::GetInstance()->m_ttFileHelperLasttalkTime);
+
+			SStringW sstrTime;
+			if (tCurr->tm_year == t->tm_year && tCurr->tm_mon == t->tm_mon && tCurr->tm_mday == t->tm_mday)
+			{
+				sstrTime.Format(L"%02d:%02d", t->tm_hour, t->tm_min);
+			}
+			else if (tCurr->tm_year == t->tm_year && tCurr->tm_mon == t->tm_mon && tCurr->tm_mday - 1 == t->tm_mday)
+				sstrTime = L"昨天";
+			else
+				sstrTime.Format(L"%02d月%02d日", t->tm_mon + 1, t->tm_mday);
+			pTime->SetWindowText(sstrTime);
+
+			//设置消息提醒
+			if (!CGlobalUnits::GetInstance()->m_bFileHelperDisturb)
+				pReminder->SetAttribute(L"show", L"1");
+			else
+				pReminder->SetAttribute(L"show", L"0");
+
+			//设置消息未读相关
+			if (!CGlobalUnits::GetInstance()->m_bFileHelperRead)
+				pRead->SetAttribute(L"show", L"1");
+			else
+				pRead->SetAttribute(L"show", L"0");
+		}
+		break;
 		case 1:
 		{
 			std::string strName = "";
@@ -140,7 +183,7 @@ public:
 				strName = iter->second.m_strName;
 			else
 				strName = pItemData->m_strID;
-			sstrName = S_CA2W(strName.c_str());
+			pName->SetWindowText(S_CA2W(strName.c_str()));
 		}
 		break;
 		case 2:
@@ -151,38 +194,12 @@ public:
 				strName = iter->second.m_strGroupName;
 			else
 				strName = pItemData->m_strID;
-			sstrName = S_CA2W(strName.c_str());
+			pName->SetWindowText(S_CA2W(strName.c_str()));
 		}
 		break;
 		default:
 			break;
 		}
-		pName->SetWindowText(sstrName);
-
-		//content
-		SStatic* pContent = pItem->FindChildByName2<SStatic>(L"item_content");
-		SASSERT(pContent);
-		//pContent->SetWindowText(S_CW2T(pItemData->m_sstrContent));
-
-		//time
-		//根据定义的时间类型处理展示，如果是时间戳则需要处理，如果是文本则直接展示
-		SStatic* pTime = pItem->FindChildByName2<SStatic>(L"item_time");
-		SASSERT(pTime);
-// 		pTime->SetWindowText(S_CW2T(pItemData->m_sstrTime));
-// 
-// 		//reminder
-// 		SImageWnd* pReminder = pItem->FindChildByName2<SImageWnd>(L"item_reminder");
-// 		SASSERT(pReminder);
-// 		if (pItemData->m_bReminder)
-// 		{
-// 			//展示
-// 			pReminder->SetAttribute(L"show", L"1");
-// 		}
-// 		else
-// 		{
-// 			//不展示
-// 			pReminder->SetAttribute(L"show", L"0");
-// 		}
 	}
 
 	void AddItem(int nType, SStringW sstrID)
@@ -232,6 +249,11 @@ public:
 			}
 		}
 		return nIndex;
+	}
+
+	void Update()
+	{
+		notifyDataSetChanged();
 	}
 
 private:
