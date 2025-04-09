@@ -7,7 +7,17 @@
 	  <file name="XML_DLG_LOGIN" path="xml\dlg_login.xml"/>
 	  <file name="XML_DLG_IM" path="xml\dlg_im.xml"/>
 
+	  <file name="FileOleLayout" path="xml\richeditole\fileole.xml" />
+	  <file name="SeperatorOleLayout" path="xml\richeditole\splitlineole.xml" />
+	  <file name="ImageOleLayout" path="xml\richeditole\imageole.xml" />
 	  <file name="FetchMoreOleLayout" path="xml\richeditole\fetchmoreole.xml" />
+	  <file name="RemainderOleLayout" path="xml\richeditole\remainderole.xml" />
+	  <file name="MetaFileOleLayout" path="xml\richeditole\MetaFileOle.xml" />
+	  <file name="AudioOleLayout" path="xml\richeditole\audioole.xml" />
+	  <file name="VideoOleLayout" path="xml\richeditole\videoole.xml" />
+	  <file name="LocationOleLayout" path="xml\richeditole\locationole.xml" />
+	  <file name="LinkOleLayout" path="xml\richeditole\linkole.xml" />
+	  <file name="ReEditorOleLayout" path="xml\richeditole\reeditorole.xml" />
 
 	  <file name="XML_PAGE_MSG" path="xml\page_msg.xml" />
 	  <file name="XML_PAGE_CONTACT" path="xml\page_contact.xml" />
@@ -122,6 +132,12 @@
 		<file name="IDB_PNG_DEFAULTNEWS32" path="image\chat\news.png" />
 
 		<file name="IDB_PNG_READDOT" path="image\chat\readdot.png" />
+
+		<!--文件ole相关资源-->
+		<file name="ID_EMPTY" path="image\chat\empty.png"/>
+		<file name="ID_RICH_FILE_BK" path="image\chat\richframe_bkg_no_spliter.png"/>
+		<file name="ID_FILE_ICON_TEXT" path="image\chat\text.png"/>
+		<file name="IDB_DEFAULT_FILEICON" path="image\chat\default_fileicon.png" />
 	</PNG>
   <IMG>
     <file name="traymenu_icons" path="image\traymenu_icons.png"/>
@@ -139,4 +155,7 @@
 	  <file name="menu_contactlist" path="xml\menu\menu_contactlist.xml" />
 	  <file name="menu_messagelist" path="xml\menu\menu_messagelist.xml" />
   </SMENU>
+	<smenuex>
+		<file name="emoji" path="menuex\emoji.xml"/>
+	</smenuex>
 </resource>

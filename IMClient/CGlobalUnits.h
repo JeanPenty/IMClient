@@ -22,7 +22,6 @@ public:
 	//id-name
 	std::map<std::string, std::string> m_mapEmojisIndex;
 	std::map<std::string, IBitmap*>	m_mapFace;
-
 	std::map<std::string, std::wstring>	m_mapFaceIndex;
 
 	LVMESSAGE_SURSEL	m_LvMessageCurSel;
@@ -61,12 +60,15 @@ public:
 	std::map<std::string, time_t> m_mapPersonalLasttalkTime;
 	std::map<std::string, time_t> m_mapGroupLasttalkTime;
 	std::map<std::string, time_t> m_mapGZHLasttalkTime;
+
+	SStringW m_sstrEmojiFolder;
 public:
 	std::string GenerateUUID();
 	void OperateShamDate();		
 	void OperatePinyinMap(const std::string& strPath);	
 	void OperateSerachIndex();
 
+	void SetEmojiPath(const SStringW& emojiPath);
 	void OperateEmojis();
 
 	std::wstring EncodeChinese(const std::wstring& wstrSrc);

@@ -1,6 +1,8 @@
 <root>
-  <windowex name="WndParent" pos="0,0,-0,-0" cursor="hand">
-    <img name="ImgFile" pos="|0,5,@40,@40" offset="-0.5,0" msgTransparent="1"/>
-    <text name="LblFileName" pos="5,[5,-5,-0" font="size:12" dotted="1" msgTransparent="1" align="center" />
-  </windowex>
+  <window name="WndParent" pos="0,0,-0,-0" cursor="hand" colorBkgnd="#4EA9E9">
+	  <window pos="1,1,-1,-1" colorBkgnd="#FFFFFF">
+		  <img name="file_icon" pos="|0,5,@40,@40" offset="-0.5,0" msgTransparent="1" skin="skin.default_fileicon"/>
+		  <text name="file_name" pos="5,[5,-5,-0" font="face:微软雅黑,size:12" dotted="1" msgTransparent="1" align="center" />
+	  </window>
+  </window>
 </root>

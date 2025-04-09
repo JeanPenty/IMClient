@@ -78,7 +78,7 @@ BOOL CImDlg::OnInitDialog(HWND wndFocus, LPARAM lInitParam)
 		SUBSCRIBE(pSendRichedit, EVT_RE_QUERY_ACCEPT, CImDlg::OnSendRichEditAcceptData);
 		SUBSCRIBE(pSendRichedit, EVT_RE_NOTIFY, CImDlg::OnSendRichEditEditorChange);
 		SUBSCRIBE(pSendRichedit, EVT_CTXMENU, CImDlg::OnSendRichEditMenu);
-		SUBSCRIBE(pSendRichedit, EVT_RE_OBJ, CImDlg::OnRecvRichEditObjEvent);
+		SUBSCRIBE(pSendRichedit, EVT_RE_OBJ, CImDlg::OnSendRichEditObjEvent);
 
 
  		AddFetchMoreBlock(pRecvRichedit);
@@ -304,6 +304,31 @@ BOOL CImDlg::OnInitDialog(HWND wndFocus, LPARAM lInitParam)
 	return TRUE;
 }
 
+LRESULT CImDlg::OnMenuEvent(UINT msg, WPARAM wp, LPARAM lp) {
+	EventArgs* e = (EventArgs*)lp;
+	_HandleEvent(e);
+	return 0;
+}
+
+void CImDlg::OnInitEmojiMenu(SMenuEx* menuPopup, UINT nIndex)
+{
+ 	SHostWnd* pMenuHost = static_cast<SHostWnd*>(menuPopup->GetHost());
+  	STileView* pTileView = pMenuHost->FindChildByName2<STileView>(L"emoji_titleview");
+	if (pTileView)
+	{
+		CEmotionTileViewAdapter* pAdapter = new CEmotionTileViewAdapter(this);
+		pTileView->SetAdapter(pAdapter);
+		std::map<std::string, std::string>::iterator iter = CGlobalUnits::GetInstance()->m_mapEmojisIndex.begin();
+		for (; iter != CGlobalUnits::GetInstance()->m_mapEmojisIndex.end(); iter++)
+		{
+			pAdapter->AddItem(iter->first.c_str());
+		}
+		pAdapter->Release();
+		pTileView->SetSel(-1);
+	}
+}
+
+
 void CImDlg::OnBnClickMessage()
 {
 	STabCtrl* pMainOptTab = FindChildByName2<STabCtrl>(L"tab_main_opt");
@@ -352,6 +377,121 @@ void CImDlg::OnBnClickCollect()
 	pBtnCollect->SetCheck(TRUE);
 
 	pMainOptTab->SetCurSel(2);
+}
+
+void CImDlg::OnBnClickEmotion(EventArgs* pEvt)
+{
+	CRect rc2(0, 0, 250, 250);
+	SWindow* btn = sobj_cast<SWindow>(pEvt->sender);
+	CRect rc = btn->GetWindowRect();
+	ClientToScreen(&rc);
+
+	SMenuEx menuEmoji;
+	menuEmoji.LoadMenu(L"smenuex:emoji");
+	menuEmoji.TrackPopupMenu(TPM_BOTTOMALIGN, rc.left, rc.top, m_hWnd, GetScale());
+
+	m_pEmojiMenu = &menuEmoji;
+}
+
+void CImDlg::OnBnClickImage()
+{
+	SStringW strFile;
+	CFileDialogEx openDlg(TRUE, _T("图片"), 0, 6,
+		_T("图片文件\0*.gif;*.bmp;*.jpg;*.png\0\0"));
+	if (openDlg.DoModal() == IDOK)
+	{
+		strFile = openDlg.m_szFileName;
+		int nFileSize;
+		FILE* fp = _wfopen(strFile, L"rb");
+		if (fp)
+		{
+			fseek(fp, 0L, SEEK_END);
+			nFileSize = ftell(fp);
+			rewind(fp);
+			fclose(fp);
+		}
+		else
+			return;
+
+		SStringW str;
+		str.Format(L"<RichEditContent>"
+			L"<para break=\"0\" disable-layout=\"1\">"
+			L"<img type=\"normal_img\" path=\"%s\" id=\"zzz\" max-size=\"\" minsize=\"\" scaring=\"1\" cursor=\"hand\" />"
+			L"</para>"
+			L"</RichEditContent>", strFile);
+
+		//根据currSel查找page
+		STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+		int nPage = pTabChatArea->GetPageIndex(S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str()), TRUE);
+		SWindow* pPage = pTabChatArea->GetPage(nPage);
+		SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
+		SASSERT(pSendRichedit);
+		pSendRichedit->InsertContent(str, RECONTENT_CARET);
+	}
+}
+
+void CImDlg::OnBnClickFile()
+{
+	CFileDialogEx openDlg(TRUE, _T("文件"), 0, 6,
+		_T("文件\0*.*\0\0"));
+	if (openDlg.DoModal() == IDOK)
+	{
+		SStringW sstrFile = openDlg.m_szFileName;
+		int nFileSize;
+		FILE* fp = _wfopen(sstrFile, L"rb");
+		if (fp)
+		{
+			fseek(fp, 0L, SEEK_END);
+			nFileSize = ftell(fp);
+			rewind(fp);
+			fclose(fp);
+		}
+		else
+			return;
+		
+		SStringW str;
+		str.Format(L"<RichEditContent>"
+			L"<metafile file=\"%s\" />"
+			L"</RichEditContent>", sstrFile);
+
+		//根据currSel查找page
+		STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+		int nPage = pTabChatArea->GetPageIndex(S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str()), TRUE);
+		SWindow* pPage = pTabChatArea->GetPage(nPage);
+		SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
+		SASSERT(pSendRichedit);
+		pSendRichedit->InsertContent(str, RECONTENT_CARET);
+	}
+}
+
+void CImDlg::OnBnClickSnapshot()
+{
+	//
+}
+
+void CImDlg::OnBnClickSnapshotArrow()
+{
+	//
+}
+
+void CImDlg::OnBnClickAudio()
+{
+	//
+}
+
+void CImDlg::OnBnClickVideo()
+{
+	//
+}
+
+void CImDlg::OnBnClickLive()
+{
+	//
+}
+
+void CImDlg::OnBnClickAudioVideo()
+{
+	//
 }
 
 void CImDlg::OnMessageItemClick(int& nIndex)
@@ -705,33 +845,75 @@ void CImDlg::OnMessageItemRClick(int& nIndex)
 void CImDlg::ContactTVItemClick(int nGID, const std::string& strID)
 {
 	//根据GID、ID做处理
+	SStatic* pObjName = FindChildByName2<SStatic>(L"obj_name");
+	SStringW sstrName = L"";
 	STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
 	if (nGID == 1) //new friend
 	{
 		pTabChatArea->SetCurSel(pTabChatArea->GetPageIndex(L"common_newfriend", TRUE));
+		sstrName = L"新的朋友";
 	}
 	else if (nGID == 2) //gzh
 	{
 		pTabChatArea->SetCurSel(pTabChatArea->GetPageIndex(L"common_gzh", TRUE));
+		sstrName = L"公众号";
 	}
 	else if (nGID == 3) //dyh
 	{
 		pTabChatArea->SetCurSel(pTabChatArea->GetPageIndex(L"common_dyh", TRUE));
+		sstrName = L"订阅号";
 	}
 	else if (nGID == 4) //group
 	{
 		pTabChatArea->SetCurSel(pTabChatArea->GetPageIndex(L"common_group", TRUE));
+
+		std::string strName = CGlobalUnits::GetInstance()->m_mapGroups[strID].m_strGroupName;
+		sstrName = S_CA2W(strName.c_str());
 	}
 	else if (nGID == 5) //personal
 	{
 		int nIndex = pTabChatArea->GetPageIndex(L"common_personal", TRUE);
 		pTabChatArea->SetCurSel(nIndex);
+
+		std::string strName = CGlobalUnits::GetInstance()->m_mapPersonals[strID].m_strName;
+		sstrName = S_CA2W(strName.c_str());
+
+		SWindow* pPage = pTabChatArea->GetPage(nIndex);
+		//设置avatar
+		SImageWnd* pAvatar = pPage->FindChildByName2<SImageWnd>(L"item_avatar");
+
+		//设置name
+		SStatic* pName = pPage->FindChildByName2<SStatic>(L"contact_userinfo_name");
+		pName->SetWindowTextW(sstrName);
+
+		//设置微信号
+		SStatic* pWxNumber = pPage->FindChildByName2<SStatic>(L"contact_userinfo_wxnumber");
+		SStringW sstrWxNumber;
+		SStringW sstrNumber = L"0xFFFFFF";
+		sstrWxNumber.Format(L"微信号：%s", sstrNumber);
+		pWxNumber->SetWindowTextW(sstrWxNumber);
+
+		//设置地区
+		SStatic* pArea = pPage->FindChildByName2<SStatic>(L"contact_userinfo_area");
+		SStringW sstrArea = L"地区：浙江 杭州";
+		pArea->SetWindowTextW(sstrArea);
+
+		//设置备注
+		SStatic* pMark = pPage->FindChildByName2<SStatic>(L"contact_userinfo_mark");
+
+		//设置个性签名
+
+		//设置来源
 	}
+	pObjName->SetWindowTextW(sstrName);
 }
 
 void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 {
 	if (nGID == 1 || nGID == 2 || nGID == 3) return;
+
+	SStatic* pObjName = FindChildByName2<SStatic>(L"obj_name");
+	SStringW sstrName = L"";
 	
 	SStringW sstrID = S_CA2W(strID.c_str());
 	if (4 == nGID)  //group
@@ -780,6 +962,9 @@ void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 
 		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType = 2;
 		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID = strID;
+
+		std::string strName = CGlobalUnits::GetInstance()->m_mapGroups[strID].m_strGroupName;
+		sstrName = S_CA2W(strName.c_str());
 	}
 	else if (5 == nGID) //Personal
 	{
@@ -824,7 +1009,11 @@ void CImDlg::ContactTVItemDBClick(int nGID, const std::string& strID)
 
 		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_nType = 1;
 		CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID = strID;
+
+		std::string strName = CGlobalUnits::GetInstance()->m_mapPersonals[strID].m_strName;
+		sstrName = S_CA2W(strName.c_str());
 	}
+	pObjName->SetWindowTextW(sstrName);
 }
 
 void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
@@ -850,7 +1039,8 @@ void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
 		switch (ret)
 		{
 		case 1:
-			break;
+			ContactTVItemDBClick(nGID, strID);
+		break;
 		case 2:
 			break;
 		case 3:
@@ -877,7 +1067,8 @@ void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
 		switch (ret)
 		{
 		case 1:
-			break;
+			ContactTVItemDBClick(nGID, strID);
+		break;
 		case 2:
 			break;
 		case 3:
@@ -888,6 +1079,38 @@ void CImDlg::ContactTVItemRClick(int nGID, const std::string& strID)
 			break;
 		}
 	}
+}
+
+void CImDlg::OnEmotionItemClick(const std::string& strID)
+{
+	//TODO:
+	m_pEmojiMenu->ExitPopupMenu(-1);
+	
+	auto& tmp = CGlobalUnits::GetInstance()->m_mapEmojisIndex;
+	//获取AppPath
+	TCHAR szFilePath[MAX_PATH + 1];
+	GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
+	SStringW sstrExePath = szFilePath;
+	SStringW sstrEmojiPath = sstrExePath + L"emojis\\";
+	std::string strFileName = CGlobalUnits::GetInstance()->m_mapEmojisIndex[strID];
+	SStringW sstrFileName = S_CA2W(strFileName.c_str());
+	sstrEmojiPath += sstrFileName;
+
+	SStringW str;
+	str.Format(L"<RichEditContent>"
+		L"<para break=\"0\" disable-layout=\"1\">"
+		L"<img type=\"smiley_img\" path=\"%s\" id=\"zzz\" max-size=\"\" minsize=\"\" scaring=\"1\" cursor=\"hand\" />"
+		L"</para>"
+		L"</RichEditContent>", sstrEmojiPath);
+
+	//根据currSel查找page
+	STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+	int nPage = pTabChatArea->GetPageIndex(S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str()), TRUE);
+	SWindow* pPage = pTabChatArea->GetPage(nPage);
+	SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
+	SASSERT(pSendRichedit);
+	pSendRichedit->InsertContent(str, RECONTENT_CARET);
 }
 
 void CImDlg::OnBnClickSend()
@@ -1049,12 +1272,20 @@ bool CImDlg::OnSendRichEditObjEvent(EventArgs* pEvt)
 	//处理发送框中ole元素的事件，比如如果图片ole双击了则使用图片预览展示当前图片
 	switch (pev->SubEventId)
 	{
-// 	case DBLCLICK_IMAGEOLE:
-// 	{
-// 		RichEditImageOle* pImageOle = sobj_cast<RichEditImageOle>(pev->RichObj);
-// 		//ShellExecute(NULL, _T("open"), pImageOle->GetImagePath(), NULL, NULL, SW_SHOW);
-// 	}
-// 	break;
+	case DBLCLICK_RICH_METAFILE:
+	{
+		//发送框文件双击事件
+		//TODO:
+
+		int kk = 0;
+	}
+	break;
+	case DBLCLICK_IMAGEOLE:
+	{
+		RichEditImageOle* pImageOle = sobj_cast<RichEditImageOle>(pev->RichObj);
+		ShellExecute(NULL, _T("open"), pImageOle->GetImagePath(), NULL, NULL, SW_SHOW);
+	}
+	break;
 	default:
 		break;
 	}

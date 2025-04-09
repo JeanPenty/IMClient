@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDYHTileViewAdapter.cpp" />
+    <ClCompile Include="CEmotionTileViewAdapter.cpp" />
     <ClCompile Include="CGlobalUnits.cpp" />
     <ClCompile Include="CGrpMbrTileViewAdapter.cpp" />
     <ClCompile Include="CGZHTileViewAdapter.cpp" />
@@ -238,6 +239,7 @@
   <ItemGroup>
     <ClInclude Include="apppublic.h" />
     <ClInclude Include="CDYHTileViewAdapter.h" />
+    <ClInclude Include="CEmotionTileViewAdapter.h" />
     <ClInclude Include="CGlobalUnits.h" />
     <ClInclude Include="CGrpMbrTileViewAdapter.h" />
     <ClInclude Include="CGZHTileViewAdapter.h" />
@@ -272,6 +274,7 @@
     <ClInclude Include="extend.skins\ExtendSkins.h" />
     <ClInclude Include="extend.skins\SAntialiasSkin.h" />
     <ClInclude Include="extend.skins\SVscrollbar.h" />
+    <ClInclude Include="FileHelper.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="MenuWrapper.h" />
     <ClInclude Include="resource.h" />
@@ -297,6 +300,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="uires\menuex\emoji.xml" />
     <Xml Include="uires\Translator\lang_cn.xml" />
     <Xml Include="uires\Translator\lang_jp.xml" />
     <Xml Include="uires\uidef\init.xml" />
@@ -321,7 +325,17 @@
     <Xml Include="uires\xml\page_comm_personal.xml" />
     <Xml Include="uires\xml\page_contact.xml" />
     <Xml Include="uires\xml\page_msg.xml" />
+    <Xml Include="uires\xml\richeditole\audioole.xml" />
     <Xml Include="uires\xml\richeditole\fetchmoreole.xml" />
+    <Xml Include="uires\xml\richeditole\fileole.xml" />
+    <Xml Include="uires\xml\richeditole\imageole.xml" />
+    <Xml Include="uires\xml\richeditole\linkole.xml" />
+    <Xml Include="uires\xml\richeditole\locationole.xml" />
+    <Xml Include="uires\xml\richeditole\MetaFileOle.xml" />
+    <Xml Include="uires\xml\richeditole\reeditorole.xml" />
+    <Xml Include="uires\xml\richeditole\remainderole.xml" />
+    <Xml Include="uires\xml\richeditole\splitlineole.xml" />
+    <Xml Include="uires\xml\richeditole\videoole.xml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="uires\image\soui.ico" />

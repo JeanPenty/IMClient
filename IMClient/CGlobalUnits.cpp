@@ -292,32 +292,40 @@ void CGlobalUnits::OperateSerachIndex()
 	}
 }
 
+void CGlobalUnits::SetEmojiPath(const SStringW& emojiPath)
+{
+	m_sstrEmojiFolder = emojiPath;
+}
+
 void CGlobalUnits::OperateEmojis()
 {
 	/*	2019-03-26	yangjinpeng
 	*	处理本地目录下的emoji图片
 	*/
-// 	std::string strPath = "emojis\\*.png";
-// 	long handle;
-// 	struct _finddata_t fileinfo;
-// 	handle = _findfirst(strPath.c_str(), &fileinfo);
-// 	if (handle == -1)
-// 		return;
-// 	do
-// 	{
-// 		std::string strUUID = GenerateUUID();
-// 		m_mapEmojisIndex.insert(std::make_pair(strUUID, fileinfo.name));
-// 
-// 		std::string strTempPath;
-// 		strTempPath.append("emojis\\");
-// 		strTempPath.append(fileinfo.name);
-// 		SStringW sstrPath = S_CA2W(strTempPath.c_str());
-// 		IBitmap* pRes = SResLoadFromFile::LoadImage(sstrPath);
-// 		if (pRes)
-// 			m_mapFace.insert(std::make_pair(strUUID, pRes));
-// 
-// 	} while (!_findnext(handle, &fileinfo));
-// 	_findclose(handle);
+	SStringT sstrPath = m_sstrEmojiFolder + _T("*.png");
+
+	WIN32_FIND_DATA findFileData;
+	HANDLE hFind;
+	hFind = FindFirstFile(sstrPath, &findFileData);
+	if (hFind == INVALID_HANDLE_VALUE) {
+		printf("No files found.\n");
+		return;
+	}
+	else {
+		do {
+			SStringT sstrName = findFileData.cFileName;
+			SStringA tmp = S_CT2A(sstrName);
+			std::string strName(tmp, tmp.GetLength());
+			std::string strUUID = GenerateUUID();
+			m_mapEmojisIndex.insert(std::make_pair(strUUID, strName));
+
+			SStringT strPath = m_sstrEmojiFolder + sstrName;
+			IBitmap* pRes = SResLoadFromFile::LoadImage(strPath);
+			if (pRes)
+				m_mapFace.insert(std::make_pair(strUUID, pRes));
+		} while (FindNextFile(hFind, &findFileData) != 0);
+		FindClose(hFind);
+	}
 }
 
 std::wstring CGlobalUnits::EncodeChinese(const std::wstring& wstrSrc)

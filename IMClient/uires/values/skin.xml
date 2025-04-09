@@ -103,5 +103,9 @@
 	<imgframe name="skin_default_news32" src="PNG:IDB_PNG_DEFAULTNEWS32" />
 	
 	<imgframe name="skin_readdot" src="PNG:IDB_PNG_READDOT" />
-	
+
+	<imgframe name="skin.rich_file_bk" src="PNG:ID_RICH_FILE_BK" left="14" top="20" right="14" bottom="20"/>
+	<imgframe name="skin.file_icon_text" src="PNG:ID_FILE_ICON_TEXT" />
+	<imgframe name="skin.empty"	src="PNG:ID_EMPTY"/>
+	<imgframe name="skin.default_fileicon"	src="PNG:IDB_DEFAULT_FILEICON"/>
 </skin>

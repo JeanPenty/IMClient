@@ -50,6 +50,9 @@
     <Filter Include="SoUI Resource\企业通讯\菜单">
       <UniqueIdentifier>{b891901e-5b4e-4101-a08e-7bee870e0f79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SoUI Resource\企业通讯\ole">
+      <UniqueIdentifier>{2189321d-b6ea-4849-9a7e-a13481e1c291}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license.txt" />
@@ -166,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="CGrpMbrTileViewAdapter.cpp">
       <Filter>适配器</Filter>
+    </ClCompile>
+    <ClCompile Include="CEmotionTileViewAdapter.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +309,12 @@
     <ClInclude Include="CGrpMbrTileViewAdapter.h">
       <Filter>适配器</Filter>
     </ClInclude>
+    <ClInclude Include="FileHelper.h">
+      <Filter>自定义控件</Filter>
+    </ClInclude>
+    <ClInclude Include="CEmotionTileViewAdapter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\soui_res.rc2">
@@ -384,6 +396,39 @@
     </Xml>
     <Xml Include="uires\xml\menu\menu_messagelist.xml">
       <Filter>SoUI Resource\企业通讯\菜单</Filter>
+    </Xml>
+    <Xml Include="uires\menuex\emoji.xml">
+      <Filter>SoUI Resource\企业通讯\菜单</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\audioole.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\fileole.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\imageole.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\linkole.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\locationole.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\MetaFileOle.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\reeditorole.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\remainderole.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\splitlineole.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
+    </Xml>
+    <Xml Include="uires\xml\richeditole\videoole.xml">
+      <Filter>SoUI Resource\企业通讯\ole</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

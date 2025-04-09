@@ -2064,12 +2064,11 @@ namespace SOUI
         //
 
         SetFileName(FileName);
-        LoadFileIcon();
+        //LoadFileIcon();    //如果需要设置准确的文件类型icon可在此函数中设置、这边暂时使用统一的默认的icon
 
         //
         // recalc size
         //
-
         CalculateNatureSize(FileName);
         CalculateExtentSize(_sizeNatural);
 
@@ -2083,7 +2082,7 @@ namespace SOUI
 
     void RichEditMetaFileOle::SetFileName(LPCWSTR lpszFileName)
     {
-        SWindow * pWin = _oleView.FindChildByName(L"LblFileName");
+        SWindow * pWin = _oleView.FindChildByName(L"file_name");
 
         if (pWin)
         {
@@ -2098,7 +2097,7 @@ namespace SOUI
 
     BOOL RichEditMetaFileOle::LoadFileIcon()
     {
-        SImageWnd * pWin = static_cast<SImageWnd*>(_oleView.FindChildByName(L"ImgFile"));
+        SImageWnd * pWin = static_cast<SImageWnd*>(_oleView.FindChildByName(L"file_icon"));
 
         if (!pWin)
         {
