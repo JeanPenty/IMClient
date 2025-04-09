@@ -131,3 +131,13 @@ public:
 	}
 }SEARCH_INFO;
 typedef std::multimap<std::wstring, SEARCH_INFO> SearchInfosMap;
+
+typedef struct struMessageDetail
+{
+	int m_nTalkType;	//聊天类型，比如群聊、个人聊天等
+	int m_nMessageType;	//消息类型，比如文本、图片、文件等
+	std::string m_strTimestamp;	//消息产生的时间
+	std::string m_strMessageID;	//消息ID
+	std::string m_strFrom;	//谁发送的
+	std::string m_strTo;	//发给谁的
+}MessageDetail;

@@ -1115,6 +1115,9 @@ void CImDlg::OnEmotionItemClick(const std::string& strID)
 
 void CImDlg::OnBnClickSend()
 {
+	//图片、文本、文件混合发送比较难处理。改为单独发送（但是emoji可以跟文本混合发送）
+	//TODO:
+
 	STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
 	SWindow* pPage = pTabChatArea->GetPage(S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str()));
 	SImRichEdit* pRecvRichedit = pPage->FindChildByName2<SImRichEdit>(L"recv_richedit");
@@ -1208,12 +1211,6 @@ void CImDlg::OnBnClickSend()
 				//此处先测试纯文本的情况
 				SStringW sstrFormatText;
 				sstrFormatText.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#000000\"><![CDATA[%s]]></text>", sstrContent);
-
-				SStringW sstrPara;
-				sstrPara.Format(
-					L"<para id=\"msgbody\" margin=\"65,0,45,0\" break=\"1\" simulate-align=\"1\">"
-					L"%s"
-					L"</para>", sstrFormatText);
 				vecMessagePara.push_back(sstrFormatText);
 			}
 			else if (strType == "image")
@@ -1227,12 +1224,6 @@ void CImDlg::OnBnClickSend()
 				SStringW sstrFormatImage;
 				sstrFormatImage.Format(L"<img subid=\"%s\" id=\"%s\" type=\"%s\" encoding=\"\" show-magnifier=\"1\" path=\"%s\" image_original_url=\"\"/>", 
 					sstrOleID, sstrOleID, sstrImageType, sstrImagePath);
-
-				SStringW sstrPara;
-				sstrPara.Format(
-					L"<para id=\"msgbody\" margin=\"65,0,45,0\" break=\"1\" simulate-align=\"1\">"
-					L"%s"
-					L"</para>", sstrFormatImage);
 				vecMessagePara.push_back(sstrFormatImage);
 			}
 		}
