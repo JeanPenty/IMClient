@@ -189,6 +189,7 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBase64.cpp" />
     <ClCompile Include="CDYHTileViewAdapter.cpp" />
     <ClCompile Include="CEmotionTileViewAdapter.cpp" />
     <ClCompile Include="CGlobalUnits.cpp" />
@@ -238,6 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="apppublic.h" />
+    <ClInclude Include="CBase64.h" />
     <ClInclude Include="CDYHTileViewAdapter.h" />
     <ClInclude Include="CEmotionTileViewAdapter.h" />
     <ClInclude Include="CGlobalUnits.h" />

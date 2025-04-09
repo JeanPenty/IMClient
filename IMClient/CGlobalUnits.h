@@ -77,4 +77,4 @@ public:
 	BOOL IsIncludeChinese(std::wstring& wstrSrc);
 };
 
-#define GlobalUnits		CGlobalUnits::GetInstance()
+#define GlobalUnits	CGlobalUnits::GetInstance()

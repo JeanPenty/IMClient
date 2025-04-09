@@ -1115,23 +1115,128 @@ void CImDlg::OnEmotionItemClick(const std::string& strID)
 
 void CImDlg::OnBnClickSend()
 {
-// 	CHARRANGE chr = { 0, -1 };
-// 	SStringW strContent = pSendRichedit->GetSelectedContent(&chr);
-// 	pugi::xml_document doc;
-// 	if (!doc.load_buffer(strContent, strContent.GetLength() * sizeof(WCHAR)))
-// 		return;
-// 
-// 	int nIncrement = 0;
-// 	pugi::xml_node node = doc.child(L"RichEditContent").first_child();
-// 	for (; node; node = node.next_sibling())
-// 	{
-// 	}
-
 	STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
 	SWindow* pPage = pTabChatArea->GetPage(S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str()));
 	SImRichEdit* pRecvRichedit = pPage->FindChildByName2<SImRichEdit>(L"recv_richedit");
 	SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
-	SStringW sstrTmp = pSendRichedit->GetWindowTextW();
+
+	CHARRANGE chr = { 0, -1 };
+	SStringW strContent = pSendRichedit->GetSelectedContent(&chr);
+	pugi::xml_document doc;
+	if (!doc.load_buffer(strContent, strContent.GetLength() * sizeof(WCHAR)))
+		return;
+
+	//给消息生成一个消息ID
+	std::string strUUID = CGlobalUnits::GetInstance()->GenerateUUID();
+
+	SStringW sstrLasttalkContent = L"";
+	std::vector<std::string> vecMessages;
+	pugi::xml_node node = doc.child(L"RichEditContent").first_child();
+	for (; node; node = node.next_sibling())
+	{
+		const wchar_t* pNodeName = node.name();
+		if (wcscmp(RichEditText::GetClassName(), pNodeName) == 0)//文本消息
+		{
+			SStringW sstrText = node.text().get();
+			std::string strText = S_CW2A(sstrText);
+			auto encode = CBase64::GetInstance()->base64_encode((unsigned char const*)strText.c_str(), strText.length());
+
+			Json::Value msg;
+			msg["type"] = "text";
+			msg["content"] = encode;
+
+			Json::FastWriter writer;
+			std::string strJson = writer.write(msg);
+			vecMessages.push_back(strJson);
+
+			sstrLasttalkContent += sstrText;
+		}
+		else if (wcscmp(RichEditImageOle::GetClassName(), pNodeName) == 0) //图片消息
+		{
+			SStringW sstrPath = node.attribute(L"path").as_string();
+			SStringW sstrType = node.attribute(L"type").as_string();
+			std::string strPath = S_CW2A(sstrPath);
+			std::string strType = S_CW2A(sstrType);
+
+			Json::Value msg;
+			msg["type"] = "image";
+			msg["img_type"] = strType;
+			msg["img_path"] = strPath;
+
+			Json::FastWriter writer;
+			std::string strJson = writer.write(msg);
+			vecMessages.push_back(strJson);
+
+			sstrLasttalkContent += L"[图片]";
+		}
+		else if (wcscmp(RichEditMetaFileOle::GetClassName(), pNodeName) == 0)//文件消息
+		{
+			SStringW sstrPath = node.attribute(L"file").as_string();
+			std::string strPath = S_CW2A(sstrPath);
+
+			Json::Value msg;
+			msg["type"] = "file";
+			msg["file_path"] = strPath;
+
+			Json::FastWriter writer;
+			std::string strJson = writer.write(msg);
+			vecMessages.push_back(strJson);
+
+			sstrLasttalkContent += L"[文件]";
+		}
+		else
+		{
+			//其他的消息都可加在后续，比如@消息或者其他自定义消息
+		}
+	}
+
+	std::vector<SStringW> vecMessagePara;
+	for (int i = 0; i < vecMessages.size(); i++)
+	{
+		std::string strJson = vecMessages[i];
+		Json::Reader reader;
+		Json::Value  root;
+		if (reader.parse(strJson.c_str(), root))
+		{
+			std::string strType = root["type"].asString();
+			if (strType == "text")
+			{
+				std::string strContent = root["content"].asString();
+				auto decode = CBase64::GetInstance()->base64_decode(strContent);
+				SStringW sstrContent = S_CA2W(decode.c_str());
+				//此处需要做大量的处理，需要将正常文本跟比如@、链接等分割开来
+				//此处先测试纯文本的情况
+				SStringW sstrFormatText;
+				sstrFormatText.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#000000\"><![CDATA[%s]]></text>", sstrContent);
+
+				SStringW sstrPara;
+				sstrPara.Format(
+					L"<para id=\"msgbody\" margin=\"65,0,45,0\" break=\"1\" simulate-align=\"1\">"
+					L"%s"
+					L"</para>", sstrFormatText);
+				vecMessagePara.push_back(sstrFormatText);
+			}
+			else if (strType == "image")
+			{
+				std::string strImageType = root["img_type"].asString();
+				std::string strImagePath = root["img_path"].asString();
+				SStringW sstrImageType = S_CA2W(strImageType.c_str());
+				SStringW sstrImagePath = S_CA2W(strImagePath.c_str());
+
+				SStringW sstrOleID = S_CA2W(strUUID.c_str()) + L"_imgole";
+				SStringW sstrFormatImage;
+				sstrFormatImage.Format(L"<img subid=\"%s\" id=\"%s\" type=\"%s\" encoding=\"\" show-magnifier=\"1\" path=\"%s\" image_original_url=\"\"/>", 
+					sstrOleID, sstrOleID, sstrImageType, sstrImagePath);
+
+				SStringW sstrPara;
+				sstrPara.Format(
+					L"<para id=\"msgbody\" margin=\"65,0,45,0\" break=\"1\" simulate-align=\"1\">"
+					L"%s"
+					L"</para>", sstrFormatImage);
+				vecMessagePara.push_back(sstrFormatImage);
+			}
+		}
+	}
 
 	SYSTEMTIME lpsystime;
 	GetLocalTime(&lpsystime);
@@ -1147,19 +1252,19 @@ void CImDlg::OnBnClickSend()
 	{
 	case 0: //filehelper
 	{
-		CGlobalUnits::GetInstance()->m_strFileHelperLasttalkContent = S_CW2A(sstrTmp);
+		CGlobalUnits::GetInstance()->m_strFileHelperLasttalkContent = S_CW2A(sstrLasttalkContent);
 		CGlobalUnits::GetInstance()->m_ttFileHelperLasttalkTime = tt;
 	}
 	break;
 	case 1://personal
 	{
-		CGlobalUnits::GetInstance()->m_mapPersonalLasttalkContent[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = S_CW2A(sstrTmp);
+		CGlobalUnits::GetInstance()->m_mapPersonalLasttalkContent[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = S_CW2A(sstrLasttalkContent);
 		CGlobalUnits::GetInstance()->m_mapPersonalLasttalkTime[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = tt;
 	}
 	break;
 	case 2://group
 	{
-		CGlobalUnits::GetInstance()->m_mapGroupLasttalkContent[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = S_CW2A(sstrTmp);
+		CGlobalUnits::GetInstance()->m_mapGroupLasttalkContent[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = S_CW2A(sstrLasttalkContent);
 		CGlobalUnits::GetInstance()->m_mapGroupLasttalkTime[CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID] = tt;
 	}
 	break;
@@ -1185,11 +1290,6 @@ void CImDlg::OnBnClickSend()
 		L"</RichEditContent>", sstrTime);
 	pRecvRichedit->InsertContent(content, RECONTENT_LAST);
 
-	//测试放置消息
-	SStringW sstrFormatText, sstrRevoke;
-	sstrFormatText.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#000000\"><![CDATA[%s]]></text>", sstrTmp);
-	sstrRevoke.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#333333\"><![CDATA[%s]]></text>", sstrTmp);
-
 	SStringW sstrID = S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str());
 	SStringW sstrFaceID;
 	auto iterFace = CGlobalUnits::GetInstance()->m_mapFaceIndex.find(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID);
@@ -1200,19 +1300,26 @@ void CImDlg::OnBnClickSend()
 	SStringW sstrAvatar;
 	sstrAvatar.Format(L"<bkele id=\"%s\" skin=\"%s\" right-pos=\"-50,]-8,@32,@32\" cursor=\"hand\" interactive=\"1\"/>", sstrID, sstrFaceID);
 
-	//处理文本消息
+	//处理消息
+	SStringW sstrMessage;
+	for (int i = 0; i < vecMessagePara.size(); i++)
+	{
+		sstrMessage += vecMessagePara[i];
+	}
+
 	SStringW sstrTextPara;
 	sstrTextPara.Format(
 		L"<para id=\"msgbody\" margin=\"65,0,45,0\" break=\"1\" simulate-align=\"1\">"
 		L"%s"
-		L"</para>", sstrFormatText);
+		L"</para>", sstrMessage);
+
 
 	//处理气泡
 	SStringW sstrBubble = L"<bkele data=\"bubble\" right-skin=\"skin_right_bubble\" right-pos=\"{-10,{-9,-55,[10\" />";
 
 	SStringW sstrContent;
 	sstrContent.Format(
-		L"<RichEditContent msgtype=\"text\" talk_type=\"personal\" type=\"ContentRight\" align=\"center\" auto-layout=\"1\">"
+		L"<RichEditContent msgtype=\"text\" talk_type=\"personal\" type=\"ContentRight\" align=\"right\" auto-layout=\"1\">"
 		L"<para break=\"1\" align=\"left\" />"
 		L"%s"
 		L"%s"
