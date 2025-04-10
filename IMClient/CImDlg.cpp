@@ -1194,6 +1194,7 @@ void CImDlg::OnBnClickSend()
 	}
 
 	std::vector<SStringW> vecMessagePara;
+	SStringW sstrTempMessage;
 	for (int i = 0; i < vecMessages.size(); i++)
 	{
 		std::string strJson = vecMessages[i];
