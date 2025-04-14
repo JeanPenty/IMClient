@@ -1115,9 +1115,6 @@ void CImDlg::OnEmotionItemClick(const std::string& strID)
 
 void CImDlg::OnBnClickSend()
 {
-	//图片、文本、文件混合发送比较难处理。改为单独发送（但是emoji可以跟文本混合发送）
-	//TODO:
-
 	STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
 	SWindow* pPage = pTabChatArea->GetPage(S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str()));
 	SImRichEdit* pRecvRichedit = pPage->FindChildByName2<SImRichEdit>(L"recv_richedit");
@@ -1128,6 +1125,8 @@ void CImDlg::OnBnClickSend()
 	pugi::xml_document doc;
 	if (!doc.load_buffer(strContent, strContent.GetLength() * sizeof(WCHAR)))
 		return;
+
+	//正常图片、文件消息单独添加到recv_richedit、文本跟emoji表情混合添加到recv_richedit
 
 	//给消息生成一个消息ID
 	std::string strUUID = CGlobalUnits::GetInstance()->GenerateUUID();
@@ -1140,6 +1139,7 @@ void CImDlg::OnBnClickSend()
 		const wchar_t* pNodeName = node.name();
 		if (wcscmp(RichEditText::GetClassName(), pNodeName) == 0)//文本消息
 		{
+			//在文本中需要处理字符串emoji的情况
 			SStringW sstrText = node.text().get();
 			std::string strText = S_CW2A(sstrText);
 			auto encode = CBase64::GetInstance()->base64_encode((unsigned char const*)strText.c_str(), strText.length());
@@ -1156,6 +1156,7 @@ void CImDlg::OnBnClickSend()
 		}
 		else if (wcscmp(RichEditImageOle::GetClassName(), pNodeName) == 0) //图片消息
 		{
+			//在图片中需要将emoji表情分开处理
 			SStringW sstrPath = node.attribute(L"path").as_string();
 			SStringW sstrType = node.attribute(L"type").as_string();
 			std::string strPath = S_CW2A(sstrPath);
@@ -1193,7 +1194,13 @@ void CImDlg::OnBnClickSend()
 		}
 	}
 
+	
 	std::vector<SStringW> vecMessagePara;
+	std::string strOldMessageType = "";
+	SStringW sstrMessageFormat = L"";
+
+	bool bAppend = false;
+
 	SStringW sstrTempMessage;
 	for (int i = 0; i < vecMessages.size(); i++)
 	{
@@ -1203,30 +1210,70 @@ void CImDlg::OnBnClickSend()
 		if (reader.parse(strJson.c_str(), root))
 		{
 			std::string strType = root["type"].asString();
-			if (strType == "text")
+			if (bAppend)
 			{
-				std::string strContent = root["content"].asString();
-				auto decode = CBase64::GetInstance()->base64_decode(strContent);
-				SStringW sstrContent = S_CA2W(decode.c_str());
-				//此处需要做大量的处理，需要将正常文本跟比如@、链接等分割开来
-				//此处先测试纯文本的情况
-				SStringW sstrFormatText;
-				sstrFormatText.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#000000\"><![CDATA[%s]]></text>", sstrContent);
-				vecMessagePara.push_back(sstrFormatText);
-			}
-			else if (strType == "image")
-			{
-				std::string strImageType = root["img_type"].asString();
-				std::string strImagePath = root["img_path"].asString();
-				SStringW sstrImageType = S_CA2W(strImageType.c_str());
-				SStringW sstrImagePath = S_CA2W(strImagePath.c_str());
+				//
+				if (strType == "text")
+				{
+					std::string strContent = root["content"].asString();
+					auto decode = CBase64::GetInstance()->base64_decode(strContent);
+					SStringW sstrContent = S_CA2W(decode.c_str());
+					//此处先测试纯文本的情况
+					SStringW sstrFormat;
+					sstrFormat.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#000000\"><![CDATA[%s]]></text>", sstrContent);
 
-				SStringW sstrOleID = S_CA2W(strUUID.c_str()) + L"_imgole";
-				SStringW sstrFormatImage;
-				sstrFormatImage.Format(L"<img subid=\"%s\" id=\"%s\" type=\"%s\" encoding=\"\" show-magnifier=\"1\" path=\"%s\" image_original_url=\"\"/>", 
-					sstrOleID, sstrOleID, sstrImageType, sstrImagePath);
-				vecMessagePara.push_back(sstrFormatImage);
+					sstrMessageFormat += sstrFormat;
+					bAppend = true;
+				}
+				else if (strType == "image")
+				{
+					//
+					bAppend = false;
+				}
 			}
+			else
+			{
+				if (strType == "text")
+				{
+					std::string strContent = root["content"].asString();
+					auto decode = CBase64::GetInstance()->base64_decode(strContent);
+					SStringW sstrContent = S_CA2W(decode.c_str());
+					//此处先测试纯文本的情况
+					SStringW sstrFormat;
+					sstrFormat.Format(L"<text font-size=\"10\" font-face=\"微软雅黑\" color=\"#000000\"><![CDATA[%s]]></text>", sstrContent);
+
+					sstrMessageFormat += sstrFormat;
+					bAppend = true;
+				}
+				else if (strType == "image")
+				{
+					std::string strImageType = root["img_type"].asString();
+					std::string strImagePath = root["img_path"].asString();
+					SStringW sstrImageType = S_CA2W(strImageType.c_str());
+					SStringW sstrImagePath = S_CA2W(strImagePath.c_str());
+					//将正常图片跟表情图片分开
+					if (strImageType == "smiley_img")   //表情
+					{
+						//表情图片跟文本一起处理
+						bAppend = true;
+					}
+					else if (strImageType == "mormal_img") //正常图片
+					{
+						//正常图片处理成一个单独的新的消息
+						//需要将之前的消息独立出来
+
+						bAppend = false;
+					}
+
+					SStringW sstrOleID = S_CA2W(strUUID.c_str()) + L"_imgole";
+					SStringW sstrFormatImage;
+					sstrFormatImage.Format(L"<img subid=\"%s\" id=\"%s\" type=\"%s\" encoding=\"\" show-magnifier=\"1\" path=\"%s\" image_original_url=\"\"/>",
+						sstrOleID, sstrOleID, sstrImageType, sstrImagePath);
+					vecMessagePara.push_back(sstrFormatImage);
+				}
+			}
+
+			vecMessagePara.push_back(sstrMessageFormat);
 		}
 	}
 
@@ -1297,34 +1344,36 @@ void CImDlg::OnBnClickSend()
 	for (int i = 0; i < vecMessagePara.size(); i++)
 	{
 		sstrMessage += vecMessagePara[i];
+
+		//处理气泡
+		SStringW sstrBubble = L"<bkele data=\"bubble\" right-skin=\"skin_right_bubble\" right-pos=\"{-10,{-9,-55,[10\" />";
+
+		SStringW sstrContent;
+		sstrContent.Format(
+			L"<RichEditContent msgtype=\"text\" talk_type=\"personal\" type=\"ContentRight\" align=\"right\" auto-layout=\"1\">"
+			L"<para break=\"1\" align=\"left\" />"
+			L"%s"
+			L"%s"
+			L"%s"
+			L"%s" //放置两个空段落
+			L"</RichEditContent>", sstrAvatar, sstrMessage, sstrBubble, pEmpty);
+		pRecvRichedit->InsertContent(sstrContent, RECONTENT_LAST);
+		pRecvRichedit->ScrollToBottom();
 	}
-
-	SStringW sstrTextPara;
-	sstrTextPara.Format(
-		L"<para id=\"msgbody\" margin=\"65,0,45,0\" break=\"1\" simulate-align=\"1\">"
-		L"%s"
-		L"</para>", sstrMessage);
-
-
-	//处理气泡
-	SStringW sstrBubble = L"<bkele data=\"bubble\" right-skin=\"skin_right_bubble\" right-pos=\"{-10,{-9,-55,[10\" />";
-
-	SStringW sstrContent;
-	sstrContent.Format(
-		L"<RichEditContent msgtype=\"text\" talk_type=\"personal\" type=\"ContentRight\" align=\"right\" auto-layout=\"1\">"
-		L"<para break=\"1\" align=\"left\" />"
-		L"%s"
-		L"%s"
-		L"%s"
-		L"%s" //放置两个空段落
-		L"</RichEditContent>", sstrAvatar, sstrTextPara, sstrBubble, pEmpty);
-	pRecvRichedit->InsertContent(sstrContent, RECONTENT_LAST);
-	pRecvRichedit->ScrollToBottom();
 
 	pSendRichedit->Clear();
 
 	//消息发送之后需要更新最近会话列表中的消息内容、消息时间等信息
 	m_pLvMessageAdapter->Update();
+
+// 	SStringW sstrTextPara;
+// 	sstrTextPara.Format(
+// 		L"<para id=\"msgbody\" margin=\"65,0,45,0\" break=\"1\" simulate-align=\"1\">"
+// 		L"%s"
+// 		L"</para>", sstrMessage);
+// 
+// 
+
 }
 
 bool CImDlg::OnSendRichEditAcceptData(EventArgs* pEvt)
