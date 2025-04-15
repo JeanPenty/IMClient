@@ -363,7 +363,6 @@ namespace SOUI
 
     class RichEditContent : public RichEditObj
     {
-//#define THRESHOLD_FOR_AUTOLAYOUT 2400 // 自动布局的阀值
 #define THRESHOLD_FOR_AUTOLAYOUT 2400 // 自动布局的阀值
 
         DECLARE_REOBJ(RichEditContent, L"RichEditContent")

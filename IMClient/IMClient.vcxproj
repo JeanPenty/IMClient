@@ -199,7 +199,9 @@
     <ClCompile Include="CLoginDlg.cpp" />
     <ClCompile Include="CLvMessageAdapter.cpp" />
     <ClCompile Include="CLvNewFriendAdapter.cpp" />
+    <ClCompile Include="CSnapshotDlg.cpp" />
     <ClCompile Include="CTvContactAdapter.cpp" />
+    <ClCompile Include="CWindowEnumer.cpp" />
     <ClCompile Include="extend.ctrls\ExtendCtrls.cpp" />
     <ClCompile Include="extend.ctrls\gif\SGifPlayer.cpp" />
     <ClCompile Include="extend.ctrls\gif\SSkinAPNG.cpp" />
@@ -224,6 +226,7 @@
     <ClCompile Include="IMClient.cpp" />
     <ClCompile Include="MainDlg.cpp" />
     <ClCompile Include="MenuWrapper.cpp" />
+    <ClCompile Include="SSnapshotCtrl.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -240,8 +243,10 @@
   <ItemGroup>
     <ClInclude Include="apppublic.h" />
     <ClInclude Include="CBase64.h" />
+    <ClInclude Include="CBitmap.h" />
     <ClInclude Include="CDYHTileViewAdapter.h" />
     <ClInclude Include="CEmotionTileViewAdapter.h" />
+    <ClInclude Include="CGdiDc.h" />
     <ClInclude Include="CGlobalUnits.h" />
     <ClInclude Include="CGrpMbrTileViewAdapter.h" />
     <ClInclude Include="CGZHTileViewAdapter.h" />
@@ -249,7 +254,10 @@
     <ClInclude Include="CLoginDlg.h" />
     <ClInclude Include="CLvMessageAdapter.h" />
     <ClInclude Include="CLvNewFriendAdapter.h" />
+    <ClInclude Include="CPixelateGrid.h" />
+    <ClInclude Include="CSnapshotDlg.h" />
     <ClInclude Include="CTvContactAdapter.h" />
+    <ClInclude Include="CWindowEnumer.h" />
     <ClInclude Include="extend.ctrls\ExtendCtrls.h" />
     <ClInclude Include="extend.ctrls\gif\SAniImgFrame.h" />
     <ClInclude Include="extend.ctrls\gif\SGifPlayer.h" />
@@ -280,6 +288,7 @@
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="MenuWrapper.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SSnapshotCtrl.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="trayicon\SShellNofityHwnd2.h" />
     <ClInclude Include="trayicon\SShellNotifyIcon.h" />

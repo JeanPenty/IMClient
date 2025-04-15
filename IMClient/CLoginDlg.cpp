@@ -223,3 +223,15 @@ void CLoginDlg::OnBnClickLogin()
 
 	m_pListen->ILoginDlgLoginCB();
 }
+
+HIMC g_hIMC = NULL;
+bool CLoginDlg::OnEditPasswordSetFocus(EventArgs* pEvt)		//edit密码框获取到焦点时事件
+{
+	g_hIMC = ImmAssociateContext(this->m_hWnd, NULL);
+	return true;
+}
+bool CLoginDlg::OnEditPasswordKillFocus(EventArgs* pEvt)	//edit密码框失去焦点时的事件
+{
+	ImmAssociateContext(this->m_hWnd, g_hIMC);
+	return true;
+}

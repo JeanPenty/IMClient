@@ -12,6 +12,9 @@
 
 #include "CEmotionTileViewAdapter.h"
 
+#include "CSnapshotDlg.h"
+#include "CWindowEnumer.h"
+
 class CImDlg : public SHostWnd
 	, public CLvMessageAdapter::IListen
 	, public CTvContactAdapter::IListen

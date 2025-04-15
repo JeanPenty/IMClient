@@ -53,6 +53,9 @@
     <Filter Include="SoUI Resource\企业通讯\ole">
       <UniqueIdentifier>{2189321d-b6ea-4849-9a7e-a13481e1c291}</UniqueIdentifier>
     </Filter>
+    <Filter Include="snapshot">
+      <UniqueIdentifier>{63d34c65-a631-42fe-9a17-6269ac33e175}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license.txt" />
@@ -175,6 +178,15 @@
     </ClCompile>
     <ClCompile Include="CBase64.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindowEnumer.cpp">
+      <Filter>snapshot</Filter>
+    </ClCompile>
+    <ClCompile Include="SSnapshotCtrl.cpp">
+      <Filter>snapshot</Filter>
+    </ClCompile>
+    <ClCompile Include="CSnapshotDlg.cpp">
+      <Filter>snapshot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +332,24 @@
     </ClInclude>
     <ClInclude Include="CBase64.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBitmap.h">
+      <Filter>snapshot</Filter>
+    </ClInclude>
+    <ClInclude Include="CGdiDc.h">
+      <Filter>snapshot</Filter>
+    </ClInclude>
+    <ClInclude Include="CWindowEnumer.h">
+      <Filter>snapshot</Filter>
+    </ClInclude>
+    <ClInclude Include="SSnapshotCtrl.h">
+      <Filter>snapshot</Filter>
+    </ClInclude>
+    <ClInclude Include="CPixelateGrid.h">
+      <Filter>snapshot</Filter>
+    </ClInclude>
+    <ClInclude Include="CSnapshotDlg.h">
+      <Filter>snapshot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

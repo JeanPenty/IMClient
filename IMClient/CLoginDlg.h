@@ -45,6 +45,9 @@ protected:
 	void OnBnClickGetSMS();
 	void OnBnClickLogin();
 
+	bool OnEditPasswordSetFocus(EventArgs* pEvt);
+	bool OnEditPasswordKillFocus(EventArgs* pEvt);
+
 	EVENT_MAP_BEGIN()
 		EVENT_NAME_COMMAND(L"btn_min", OnBnClickMin)
 		EVENT_NAME_COMMAND(L"btn_close", OnBnClickClose)
@@ -59,6 +62,9 @@ protected:
 		EVENT_NAME_COMMAND(L"btn_leave", OnBnClickLeave)
 		EVENT_NAME_COMMAND(L"btn_getsms", OnBnClickGetSMS)
 		EVENT_NAME_COMMAND(L"btn_login", OnBnClickLogin)
+
+		EVENT_NAME_HANDLER(L"edit_password", EventSetFocus::EventID, OnEditPasswordSetFocus)
+		EVENT_NAME_HANDLER(L"edit_password", EventKillFocus::EventID, OnEditPasswordKillFocus)
 	EVENT_MAP_END()
 
 	BEGIN_MSG_MAP_EX(CLoginDlg)
