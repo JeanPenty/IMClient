@@ -116,5 +116,9 @@ public:
 	virtual void ContactTVItemRClick(int nGID, const std::string& strID);
 
 	virtual void OnEmotionItemClick(const std::string& strID);
+
+public:
+	void SnapshotFinished();
+	void SnapshotCancel();
 };
 

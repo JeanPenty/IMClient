@@ -107,9 +107,9 @@ void CSnapshotDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	if (nChar == VK_ESCAPE)
 	{
-// 		EventSnapshotCancel* pEvt = new EventSnapshotCancel(this);
-// 		SNotifyCenter::getSingleton().FireEventAsync(pEvt);
-// 		pEvt->Release();
+		EventSnapshotCancel* pEvt = new EventSnapshotCancel(this);
+		SNotifyCenter::getSingleton().FireEventAsync(pEvt);
+		pEvt->Release();
 		EndDialog(IDOK);
 	}
 
@@ -323,9 +323,9 @@ bool CSnapshotDlg::OnEventRectCaptured(EventRectCaptured* pEvt)
 
 bool CSnapshotDlg::OnEventRectDbClk(EventRectDbClk* pEvt)
 {
-// 	EventSnapshotFinish* pEvtFinish = new EventSnapshotFinish(this);
-// 	SNotifyCenter::getSingleton().FireEventAsync(pEvtFinish);
-// 	pEvtFinish->Release();
+	EventSnapshotFinish* pEvtFinish = new EventSnapshotFinish(this);
+	SNotifyCenter::getSingleton().FireEventAsync(pEvtFinish);
+	pEvtFinish->Release();
 
 	EndDialog(IDOK);
 	return true;
@@ -972,18 +972,18 @@ void CSnapshotDlg::OnBnClickSave()
 			SASSERT(pSnapshot);
 			pSnapshot->SaveCapBmpToFile(sstrFileName, clsId);
 		}
-// 		EventSnapshotCancel* pEvt = new EventSnapshotCancel(this);
-// 		SNotifyCenter::getSingleton().FireEventAsync(pEvt);
-// 		pEvt->Release();
+		EventSnapshotCancel* pEvt = new EventSnapshotCancel(this);
+		SNotifyCenter::getSingleton().FireEventAsync(pEvt);
+		pEvt->Release();
 		EndDialog(IDOK);
 	}
 }
 
 void CSnapshotDlg::OnBnClickCancel()
 {
-// 	EventSnapshotCancel* pEvt = new EventSnapshotCancel(this);
-// 	SNotifyCenter::getSingleton().FireEventAsync(pEvt);
-// 	pEvt->Release();
+	EventSnapshotCancel* pEvt = new EventSnapshotCancel(this);
+	SNotifyCenter::getSingleton().FireEventAsync(pEvt);
+	pEvt->Release();
 	EndDialog(IDOK);
 }
 
@@ -993,9 +993,9 @@ void CSnapshotDlg::OnBnClickFinish()
 	SASSERT(pSnapshot);
 	pSnapshot->SaveCapBmpToClipboard();
 
-// 	EventSnapshotFinish* pEvt = new EventSnapshotFinish(this);
-// 	SNotifyCenter::getSingleton().FireEventAsync(pEvt);
-// 	pEvt->Release();
+	EventSnapshotFinish* pEvt = new EventSnapshotFinish(this);
+	SNotifyCenter::getSingleton().FireEventAsync(pEvt);
+	pEvt->Release();
 
 	EndDialog(IDOK);
 }

@@ -1271,6 +1271,23 @@ void CImDlg::OnBnClickSend()
 						bAppend = false;
 						vecMessagePara.push_back(sstrFormat);
 					}
+					else
+					{
+						//将之前组装的数据保存一下
+						if (sstrMessageFormat != L"")
+						{
+							vecMessagePara.push_back(sstrMessageFormat);
+							sstrMessageFormat = L"";
+						}
+
+						strUUID = CGlobalUnits::GetInstance()->GenerateUUID();
+						SStringW sstrOleID = S_CA2W(strUUID.c_str()) + L"_imgole";
+						SStringW sstrFormat;
+						sstrFormat.Format(L"<img subid=\"%s\" id=\"%s\" type=\"%s\" encoding=\"\" show-magnifier=\"1\" path=\"%s\" image_original_url=\"\"/>",
+							sstrOleID, sstrOleID, sstrImageType, sstrImagePath);
+						bAppend = false;
+						vecMessagePara.push_back(sstrFormat);
+					}
 				}
 				else
 				{
@@ -1285,6 +1302,18 @@ void CImDlg::OnBnClickSend()
 						bAppend = true;
 					}
 					else if (strImageType == "normal_img") //正常图片
+					{
+						//是一条新消息
+						strUUID = CGlobalUnits::GetInstance()->GenerateUUID();
+						SStringW sstrOleID = S_CA2W(strUUID.c_str()) + L"_imgole";
+						SStringW sstrFormat;
+						sstrFormat.Format(L"<img subid=\"%s\" id=\"%s\" type=\"%s\" encoding=\"\" show-magnifier=\"1\" path=\"%s\" image_original_url=\"\"/>",
+							sstrOleID, sstrOleID, sstrImageType, sstrImagePath);
+
+						bAppend = false;
+						vecMessagePara.push_back(sstrFormat);
+					}
+					else
 					{
 						//是一条新消息
 						strUUID = CGlobalUnits::GetInstance()->GenerateUUID();
@@ -1624,4 +1653,28 @@ void CImDlg::AddFetchMoreBlock(SImRichEdit* pRecvRichEdit)
 		L"</RichEditContent>";
 
 	pRecvRichEdit->InsertContent(content);
+}
+
+void CImDlg::SnapshotFinished()
+{
+	//截图完成  如果是隐藏主窗口的则将主窗口正常显示
+
+	if (this->m_hWnd == GetForegroundWindow())
+	{
+		//根据currSel查找page
+		STabCtrl* pTabChatArea = FindChildByName2<STabCtrl>(L"tab_chat_area");
+		int nPage = pTabChatArea->GetPageIndex(S_CA2W(CGlobalUnits::GetInstance()->m_LvMessageCurSel.m_strID.c_str()), TRUE);
+		SWindow* pPage = pTabChatArea->GetPage(nPage);
+
+		SImRichEdit* pSendRichedit = pPage->FindChildByName2<SImRichEdit>(L"send_richedit");
+		SASSERT(pSendRichedit);
+
+		pSendRichedit->Paste();
+		pSendRichedit->SetFocus();
+	}
+}
+
+void CImDlg::SnapshotCancel()
+{
+	//截图取消  如果是隐藏主窗口的则将主窗口正常显示
 }
