@@ -64,6 +64,7 @@ public:
 public:
 	virtual bool canProcessMsg();
 	void SetBmpResource(CJPBitmap* pBmp);
+	void SetBmpResource(HBITMAP bmp);
 	void SetScreenSize(int nScreenX, int nScreenY);
 	void SaveCapBmpToClipboard();
 	void SaveCapBmpToFile(LPCTSTR wstrSavePath, CLSID& encoderClsid);
@@ -149,6 +150,8 @@ private:
 	CJPBitmap* m_pBitmap;
 	//Gdiplus::Image*			m_pImgMask;
 	//Image*					m_pBrushMask;
+	HBITMAP m_hBitmap;
+
 	Gdiplus::Bitmap* m_MaskBitmap;
 	int						m_nScreenX, m_nScreenY;
 	std::vector<CJPBitmap*>		m_vecBitmap;

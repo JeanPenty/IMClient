@@ -51,17 +51,33 @@ BOOL CSnapshotDlg::OnInitDialog(HWND wnd, LPARAM lInitParam)
 	nyScreen = 400;
 #endif // !MDEBUG
 
-
 	::SetWindowPos(this->m_hWnd, HWND_TOPMOST, 0, 0, nxScreen, nyScreen, SWP_SHOWWINDOW);
 	SetForegroundWindow(this->m_hWnd);
 
+	SSnapshotCtrl* pSnapshot = FindChildByName2<SSnapshotCtrl>(L"snapshot");
+	SASSERT(pSnapshot);
+	pSnapshot->GetEventSet()->subscribeEvent(&CSnapshotDlg::OnEventCapturing, this);
+	pSnapshot->GetEventSet()->subscribeEvent(&CSnapshotDlg::OnEventRectMoving, this);
+	pSnapshot->GetEventSet()->subscribeEvent(&CSnapshotDlg::OnEventRectCaptured, this);
+	pSnapshot->GetEventSet()->subscribeEvent(&CSnapshotDlg::OnEventRectDbClk, this);
+
+	SComboView* pWordSizeCbxView = FindChildByName2<SComboView>(L"cbx_wordsize");
+	SASSERT(pWordSizeCbxView);
+	SListView* pListview = pWordSizeCbxView->GetListView();
+	SASSERT(pListview);
+	pWordSizeCbxView->SetCurSel(4);
+	pSnapshot->SetFontSize(18);
+	pSnapshot->SetScreenSize(nxScreen, nyScreen);
+
+	EnumEncoder(m_encoderList);
+
 	SOUI::CRect rc(0, 0, nxScreen, nyScreen);
-	CJPDC       hScrDC, hMemDC;
+	HDC srcDC, memDC;
 	HBITMAP   hBitmap, hOldBitmap;
-	int       nX, nY, nX2, nY2;
-	int       nWidth, nHeight;
-	hScrDC = CreateDC(L"DISPLAY", NULL, NULL, NULL);
-	hMemDC = CreateCompatibleDC(hScrDC);
+	int nX, nY, nX2, nY2;
+	int nWidth, nHeight;
+	srcDC = CreateDC(L"DISPLAY", NULL, NULL, NULL);
+	memDC = CreateCompatibleDC(srcDC);
 	nX = rc.left;
 	nY = rc.top;
 	nX2 = rc.right;
@@ -76,41 +92,13 @@ BOOL CSnapshotDlg::OnInitDialog(HWND wnd, LPARAM lInitParam)
 		nY2 = dm.dmPelsHeight;
 	nWidth = nX2 - nX;
 	nHeight = nY2 - nY;
-	hBitmap = CreateCompatibleBitmap(hScrDC, nWidth, nHeight);
-	hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
-	BitBlt(hMemDC, 0, 0, nWidth, nHeight, hScrDC, nX, nY, SRCCOPY);
-	hBitmap = (HBITMAP)SelectObject(hMemDC, hOldBitmap);
 
+	hBitmap = CreateCompatibleBitmap(srcDC, nWidth, nHeight);
+	hOldBitmap = (HBITMAP)SelectObject(memDC, hBitmap);
+	BitBlt(memDC, 0, 0, nWidth, nHeight, srcDC, nX, nY, SRCCOPY);
+	hBitmap = (HBITMAP)SelectObject(memDC, hOldBitmap);
 
-	SSnapshotCtrl* pSnapshot = FindChildByName2<SSnapshotCtrl>(L"snapshot");
-	SASSERT(pSnapshot);
 	pSnapshot->SetBmpResource(new CJPBitmap(hBitmap));
-	pSnapshot->SetScreenSize(nxScreen, nyScreen);
-
-	pSnapshot->GetEventSet()->subscribeEvent(&CSnapshotDlg::OnEventCapturing, this);
-	pSnapshot->GetEventSet()->subscribeEvent(&CSnapshotDlg::OnEventRectMoving, this);
-	pSnapshot->GetEventSet()->subscribeEvent(&CSnapshotDlg::OnEventRectCaptured, this);
-	pSnapshot->GetEventSet()->subscribeEvent(&CSnapshotDlg::OnEventRectDbClk, this);
-
-	SComboView* pWordSizeCbxView = FindChildByName2<SComboView>(L"cbx_wordsize");
-	SASSERT(pWordSizeCbxView);
-	SListView* pListview = pWordSizeCbxView->GetListView();
-	SASSERT(pListview);
-// 	CWordSizeAdapter* pWordSizeAdapter = new CWordSizeAdapter(this);
-// 	pListview->SetAdapter(pWordSizeAdapter);
-// 	pWordSizeAdapter->Release();
-// 
-// 	pWordSizeAdapter->AddWordSize(L"10");
-// 	pWordSizeAdapter->AddWordSize(L"12");
-// 	pWordSizeAdapter->AddWordSize(L"14");
-// 	pWordSizeAdapter->AddWordSize(L"16");
-// 	pWordSizeAdapter->AddWordSize(L"18");
-// 	pWordSizeAdapter->AddWordSize(L"20");
-
-	pWordSizeCbxView->SetCurSel(4);
-	pSnapshot->SetFontSize(18);
-
-	EnumEncoder(m_encoderList);
 
 	return TRUE;
 }

@@ -722,6 +722,12 @@ void SSnapshotCtrl::SetBmpResource(CJPBitmap* pBmp)
 	Invalidate();
 }
 
+void SSnapshotCtrl::SetBmpResource(HBITMAP bmp)
+{
+	//Gdiplus::Bitmap* pImage = Gdiplus::Bitmap::FromHBITMAP(bmp, NULL);
+	m_hBitmap = bmp;
+}
+
 void SSnapshotCtrl::SetScreenSize(int nScreenX, int nScreenY)
 {
 	m_nScreenX = nScreenX;
@@ -850,7 +856,6 @@ void SSnapshotCtrl::DrawRectangle(IRenderTarget* pRT, const SOUI::CRect& rcRecta
 	CJPDC dcCompatible;
 	dcCompatible.CreateCompatibleDC(hDC);
 	dcCompatible.SelectBitmap(*m_pBitmap);
-
 	BitBlt(hDC, 0, 0, rt.Width(), rt.Height(), dcCompatible, 0, 0, SRCCOPY);
 
 	Graphics graphics(hDC);
