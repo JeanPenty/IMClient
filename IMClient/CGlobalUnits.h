@@ -62,6 +62,9 @@ public:
 	std::map<std::string, time_t> m_mapGZHLasttalkTime;
 
 	SStringW m_sstrEmojiFolder;
+
+	std::map<std::string, time_t> m_mapMessageAddTime;
+	std::string m_strMineID; //自己的ID
 public:
 	std::string GenerateUUID();
 	void OperateShamDate();		

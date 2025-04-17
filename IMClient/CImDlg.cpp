@@ -1655,6 +1655,16 @@ void CImDlg::AddFetchMoreBlock(SImRichEdit* pRecvRichEdit)
 	pRecvRichEdit->InsertContent(content);
 }
 
+void CImDlg::AddBackMessage(SImRichEdit* pRecvRE)
+{
+	//
+}
+
+void CImDlg::AddFrontMessage(SImRichEdit* pRecvRE)
+{
+	//
+}
+
 void CImDlg::SnapshotFinished()
 {
 	//截图完成  如果是隐藏主窗口的则将主窗口正常显示

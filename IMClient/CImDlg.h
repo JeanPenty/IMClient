@@ -107,6 +107,8 @@ protected:
 
 	void AddFetchMoreBlock(SImRichEdit* pRecvRichEdit);
 
+	void AddBackMessage(SImRichEdit* pRecvRE);
+	void AddFrontMessage(SImRichEdit* pRecvRE);
 public:
 	virtual void OnMessageItemClick(int& nIndex);
 	virtual void OnMessageItemRClick(int& nIndex);
