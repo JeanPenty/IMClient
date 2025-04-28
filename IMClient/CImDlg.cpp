@@ -83,7 +83,7 @@ BOOL CImDlg::OnInitDialog(HWND wndFocus, LPARAM lInitParam)
 
  		AddFetchMoreBlock(pRecvRichedit);
 
-		m_pLvMessageAdapter->SetCurSel(L"file_helper");
+		//m_pLvMessageAdapter->SetCurSel(L"file_helper");
 	}
 
 
